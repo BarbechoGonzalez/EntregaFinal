@@ -58,6 +58,7 @@ SpecificWorker::SpecificWorker(MapPrx& mprx) : GenericWorker(mprx)
 	pintarRobot( a, a);
 	ldata = laser_proxy->getLaserData();
 	muestreolaser=(ldata[51].angle-ldata[50].angle);
+	pick=QVec::vec3(0,0,0);;
 
 // 	differentialrobot_proxy->setOdometerPose(0,0,state.alpha);
 }
@@ -123,7 +124,12 @@ SpecificWorker::State SpecificWorker::mapear()
   {
 // 		get a random state
 		borrarcirculo();
-		this->n = QVec::uniformVector(3, -FLOOR, FLOOR);
+		if(pick==QVec::vec3(0,0,0))
+			this->n = QVec::uniformVector(3, -FLOOR, FLOOR);
+		else{
+			n=pick;
+			pick=QVec::vec3(0,0,0);
+		}
 		n[1] = 0;  //to avoid y
 		pintardestino(n);//azul
 		writeinfo("Point = ("+to_string(n(0))+","+to_string(n(2))+")");	
@@ -257,8 +263,8 @@ bool SpecificWorker::puntodentrocampolaser(int &pos,float angle, int distpoint)
 }
 void SpecificWorker::girar(float angle)
 {
-	differentialrobot_proxy->setSpeedBase(0,angle);
-	sleep(1);
+	differentialrobot_proxy->setSpeedBase(0,angle*2);
+	usleep(500000);
 	differentialrobot_proxy->setSpeedBase(0,0);
 }
 void SpecificWorker::anadirnodo(QVec nuevo)
@@ -314,6 +320,13 @@ void SpecificWorker::newAprilTag(const tagsList &tags)
 	for (auto t :tags){
 	      marcas.add(t,state);
 	}
+}
+void SpecificWorker::setPick(const Pick& myPick)
+{
+	pick(0) = myPick.x;
+	pick(1) = myPick.y;
+	pick(2) = -myPick.z;
+	qDebug()<< __FUNCTION__ << myPick.x << myPick.y << -myPick.z;
 }
 void SpecificWorker::reloj()
 {

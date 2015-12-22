@@ -78,12 +78,14 @@
 #include "specificmonitor.h"
 #include "commonbehaviorI.h"
 
+#include <rcismousepickerI.h>
 #include <apriltagsI.h>
 
 #include <DifferentialRobot.h>
 #include <Laser.h>
 #include <AprilTags.h>
 #include <Controller.h>
+#include <RCISMousePicker.h>
 
 
 // User includes here
@@ -96,6 +98,7 @@ using namespace RoboCompDifferentialRobot;
 using namespace RoboCompLaser;
 using namespace RoboCompAprilTags;
 using namespace RoboCompController;
+using namespace RoboCompRCISMousePicker;
 
 
 
@@ -186,7 +189,7 @@ int ::controller::run(int argc, char* argv[])
 	rInfo("LaserProxy initialized Ok!");
 	mprx["LaserProxy"] = (::IceProxy::Ice::Object*)(&laser_proxy);//Remote server proxy creation example
 
-IceStorm::TopicManagerPrx topicManager = IceStorm::TopicManagerPrx::checkedCast(communicator()->propertyToProxy("TopicManager.Proxy"));
+	IceStorm::TopicManagerPrx topicManager = IceStorm::TopicManagerPrx::checkedCast(communicator()->propertyToProxy("TopicManager.Proxy"));
 
 
 	SpecificWorker *worker = new SpecificWorker(mprx);
@@ -220,6 +223,35 @@ IceStorm::TopicManagerPrx topicManager = IceStorm::TopicManagerPrx::checkedCast(
 
 
 
+
+
+		// Server adapter creation and publication
+		if (not GenericMonitor::configGetString(communicator(), prefix, "RCISMousePickerTopic.Endpoints", tmp, ""))
+		{
+			cout << "[" << PROGRAM_NAME << "]: Can't read configuration for proxy RCISMousePickerProxy";
+		}
+		Ice::ObjectAdapterPtr RCISMousePicker_adapter = communicator()->createObjectAdapterWithEndpoints("rcismousepicker", tmp);
+		RCISMousePickerPtr rcismousepickerI_ = new RCISMousePickerI(worker);
+		Ice::ObjectPrx rcismousepicker = RCISMousePicker_adapter->addWithUUID(rcismousepickerI_)->ice_oneway();
+		IceStorm::TopicPrx rcismousepicker_topic;
+		if(!rcismousepicker_topic){
+		try {
+			rcismousepicker_topic = topicManager->create("RCISMousePicker");
+		}
+		catch (const IceStorm::TopicExists&) {
+		//Another client created the topic
+		try{
+			rcismousepicker_topic = topicManager->retrieve("RCISMousePicker");
+		}
+		catch(const IceStorm::NoSuchTopic&)
+		{
+			//Error. Topic does not exist
+			}
+		}
+		IceStorm::QoS qos;
+		rcismousepicker_topic->subscribeAndGetPublisher(qos, rcismousepicker);
+		}
+		RCISMousePicker_adapter->activate();
 
 		// Server adapter creation and publication
 		if (not GenericMonitor::configGetString(communicator(), prefix, "AprilTagsTopic.Endpoints", tmp, ""))

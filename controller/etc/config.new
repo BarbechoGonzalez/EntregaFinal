@@ -1,7 +1,8 @@
-CommonBehavior.Endpoints=tcp -p 1
+CommonBehavior.Endpoints=tcp -p 11000
 
 
 # Endpoints for subscriptions
+RCISMousePickerTopic.Endpoints=tcp -p 0
 AprilTagsTopic.Endpoints=tcp -p 0
 
 

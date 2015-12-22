@@ -94,3 +94,105 @@ int main(int argc, char** argv)
 #endif
 }
 
+Determining if the Q_WS_WIN exist failed with the following output:
+Change Dir: /home/ivan/robocomp/components/g1/controller/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec2797093465/fast"
+make[1]: se ingresa al directorio «/home/ivan/robocomp/components/g1/controller/CMakeFiles/CMakeTmp»
+/usr/bin/make -f CMakeFiles/cmTryCompileExec2797093465.dir/build.make CMakeFiles/cmTryCompileExec2797093465.dir/build
+make[2]: se ingresa al directorio «/home/ivan/robocomp/components/g1/controller/CMakeFiles/CMakeTmp»
+/usr/bin/cmake -E cmake_progress_report /home/ivan/robocomp/components/g1/controller/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building CXX object CMakeFiles/cmTryCompileExec2797093465.dir/CheckSymbolExists.cxx.o
+/usr/bin/c++    -I/usr/include/qt4    -o CMakeFiles/cmTryCompileExec2797093465.dir/CheckSymbolExists.cxx.o -c /home/ivan/robocomp/components/g1/controller/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx
+/home/ivan/robocomp/components/g1/controller/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx: In function ‘int main(int, char**)’:
+/home/ivan/robocomp/components/g1/controller/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx:8:19: error: ‘Q_WS_WIN’ was not declared in this scope
+   return ((int*)(&Q_WS_WIN))[argc];
+                   ^
+make[2]: se sale del directorio «/home/ivan/robocomp/components/g1/controller/CMakeFiles/CMakeTmp»
+make[2]: *** [CMakeFiles/cmTryCompileExec2797093465.dir/CheckSymbolExists.cxx.o] Error 1
+make[1]: *** [cmTryCompileExec2797093465/fast] Error 2
+make[1]: se sale del directorio «/home/ivan/robocomp/components/g1/controller/CMakeFiles/CMakeTmp»
+
+File /home/ivan/robocomp/components/g1/controller/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx:
+/* */
+#include <QtCore/qglobal.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef Q_WS_WIN
+  return ((int*)(&Q_WS_WIN))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the Q_WS_QWS exist failed with the following output:
+Change Dir: /home/ivan/robocomp/components/g1/controller/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec1012941503/fast"
+make[1]: se ingresa al directorio «/home/ivan/robocomp/components/g1/controller/CMakeFiles/CMakeTmp»
+/usr/bin/make -f CMakeFiles/cmTryCompileExec1012941503.dir/build.make CMakeFiles/cmTryCompileExec1012941503.dir/build
+make[2]: se ingresa al directorio «/home/ivan/robocomp/components/g1/controller/CMakeFiles/CMakeTmp»
+/usr/bin/cmake -E cmake_progress_report /home/ivan/robocomp/components/g1/controller/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building CXX object CMakeFiles/cmTryCompileExec1012941503.dir/CheckSymbolExists.cxx.o
+/usr/bin/c++    -I/usr/include/qt4    -o CMakeFiles/cmTryCompileExec1012941503.dir/CheckSymbolExists.cxx.o -c /home/ivan/robocomp/components/g1/controller/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx
+/home/ivan/robocomp/components/g1/controller/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx: In function ‘int main(int, char**)’:
+/home/ivan/robocomp/components/g1/controller/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx:8:19: error: ‘Q_WS_QWS’ was not declared in this scope
+   return ((int*)(&Q_WS_QWS))[argc];
+                   ^
+make[2]: se sale del directorio «/home/ivan/robocomp/components/g1/controller/CMakeFiles/CMakeTmp»
+make[2]: *** [CMakeFiles/cmTryCompileExec1012941503.dir/CheckSymbolExists.cxx.o] Error 1
+make[1]: *** [cmTryCompileExec1012941503/fast] Error 2
+make[1]: se sale del directorio «/home/ivan/robocomp/components/g1/controller/CMakeFiles/CMakeTmp»
+
+File /home/ivan/robocomp/components/g1/controller/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx:
+/* */
+#include <QtCore/qglobal.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef Q_WS_QWS
+  return ((int*)(&Q_WS_QWS))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the Q_WS_MAC exist failed with the following output:
+Change Dir: /home/ivan/robocomp/components/g1/controller/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec830415127/fast"
+make[1]: se ingresa al directorio «/home/ivan/robocomp/components/g1/controller/CMakeFiles/CMakeTmp»
+/usr/bin/make -f CMakeFiles/cmTryCompileExec830415127.dir/build.make CMakeFiles/cmTryCompileExec830415127.dir/build
+make[2]: se ingresa al directorio «/home/ivan/robocomp/components/g1/controller/CMakeFiles/CMakeTmp»
+/usr/bin/cmake -E cmake_progress_report /home/ivan/robocomp/components/g1/controller/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building CXX object CMakeFiles/cmTryCompileExec830415127.dir/CheckSymbolExists.cxx.o
+/usr/bin/c++    -I/usr/include/qt4    -o CMakeFiles/cmTryCompileExec830415127.dir/CheckSymbolExists.cxx.o -c /home/ivan/robocomp/components/g1/controller/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx
+/home/ivan/robocomp/components/g1/controller/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx: In function ‘int main(int, char**)’:
+/home/ivan/robocomp/components/g1/controller/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx:8:19: error: ‘Q_WS_MAC’ was not declared in this scope
+   return ((int*)(&Q_WS_MAC))[argc];
+                   ^
+make[2]: *** [CMakeFiles/cmTryCompileExec830415127.dir/CheckSymbolExists.cxx.o] Error 1
+make[2]: se sale del directorio «/home/ivan/robocomp/components/g1/controller/CMakeFiles/CMakeTmp»
+make[1]: se sale del directorio «/home/ivan/robocomp/components/g1/controller/CMakeFiles/CMakeTmp»
+make[1]: *** [cmTryCompileExec830415127/fast] Error 2
+
+File /home/ivan/robocomp/components/g1/controller/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx:
+/* */
+#include <QtCore/qglobal.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef Q_WS_MAC
+  return ((int*)(&Q_WS_MAC))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+

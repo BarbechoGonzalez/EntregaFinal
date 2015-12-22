@@ -82,16 +82,6 @@ install/local: preinstall
 install/local/fast: install/local
 .PHONY : install/local/fast
 
-# Special rule for the target install/strip
-install/strip: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip
-
-# Special rule for the target install/strip
-install/strip/fast: install/strip
-.PHONY : install/strip/fast
-
 # Special rule for the target list_install_components
 list_install_components:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
@@ -276,6 +266,30 @@ Laser.cpp.s:
 	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/Laser.cpp.s
 .PHONY : Laser.cpp.s
 
+RCISMousePicker.o: RCISMousePicker.cpp.o
+.PHONY : RCISMousePicker.o
+
+# target to build an object file
+RCISMousePicker.cpp.o:
+	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/RCISMousePicker.cpp.o
+.PHONY : RCISMousePicker.cpp.o
+
+RCISMousePicker.i: RCISMousePicker.cpp.i
+.PHONY : RCISMousePicker.i
+
+# target to preprocess a source file
+RCISMousePicker.cpp.i:
+	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/RCISMousePicker.cpp.i
+.PHONY : RCISMousePicker.cpp.i
+
+RCISMousePicker.s: RCISMousePicker.cpp.s
+.PHONY : RCISMousePicker.s
+
+# target to generate assembly for a file
+RCISMousePicker.cpp.s:
+	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/RCISMousePicker.cpp.s
+.PHONY : RCISMousePicker.cpp.s
+
 apriltagsI.o: apriltagsI.cpp.o
 .PHONY : apriltagsI.o
 
@@ -420,30 +434,6 @@ home/ivan/robocomp/classes/rapplication/rapplication.cpp.s:
 	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/home/ivan/robocomp/classes/rapplication/rapplication.cpp.s
 .PHONY : home/ivan/robocomp/classes/rapplication/rapplication.cpp.s
 
-listamarcas.o: listamarcas.cpp.o
-.PHONY : listamarcas.o
-
-# target to build an object file
-listamarcas.cpp.o:
-	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/listamarcas.cpp.o
-.PHONY : listamarcas.cpp.o
-
-listamarcas.i: listamarcas.cpp.i
-.PHONY : listamarcas.i
-
-# target to preprocess a source file
-listamarcas.cpp.i:
-	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/listamarcas.cpp.i
-.PHONY : listamarcas.cpp.i
-
-listamarcas.s: listamarcas.cpp.s
-.PHONY : listamarcas.s
-
-# target to generate assembly for a file
-listamarcas.cpp.s:
-	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/listamarcas.cpp.s
-.PHONY : listamarcas.cpp.s
-
 main.o: main.cpp.o
 .PHONY : main.o
 
@@ -467,30 +457,6 @@ main.s: main.cpp.s
 main.cpp.s:
 	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/main.cpp.s
 .PHONY : main.cpp.s
-
-marca.o: marca.cpp.o
-.PHONY : marca.o
-
-# target to build an object file
-marca.cpp.o:
-	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/marca.cpp.o
-.PHONY : marca.cpp.o
-
-marca.i: marca.cpp.i
-.PHONY : marca.i
-
-# target to preprocess a source file
-marca.cpp.i:
-	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/marca.cpp.i
-.PHONY : marca.cpp.i
-
-marca.s: marca.cpp.s
-.PHONY : marca.s
-
-# target to generate assembly for a file
-marca.cpp.s:
-	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/marca.cpp.s
-.PHONY : marca.cpp.s
 
 moc_apriltagsI.o: moc_apriltagsI.cxx.o
 .PHONY : moc_apriltagsI.o
@@ -588,77 +554,29 @@ moc_genericworker.cxx.s:
 	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/moc_genericworker.cxx.s
 .PHONY : moc_genericworker.cxx.s
 
-moc_listamarcas.o: moc_listamarcas.cxx.o
-.PHONY : moc_listamarcas.o
+moc_rcismousepickerI.o: moc_rcismousepickerI.cxx.o
+.PHONY : moc_rcismousepickerI.o
 
 # target to build an object file
-moc_listamarcas.cxx.o:
-	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/moc_listamarcas.cxx.o
-.PHONY : moc_listamarcas.cxx.o
+moc_rcismousepickerI.cxx.o:
+	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/moc_rcismousepickerI.cxx.o
+.PHONY : moc_rcismousepickerI.cxx.o
 
-moc_listamarcas.i: moc_listamarcas.cxx.i
-.PHONY : moc_listamarcas.i
-
-# target to preprocess a source file
-moc_listamarcas.cxx.i:
-	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/moc_listamarcas.cxx.i
-.PHONY : moc_listamarcas.cxx.i
-
-moc_listamarcas.s: moc_listamarcas.cxx.s
-.PHONY : moc_listamarcas.s
-
-# target to generate assembly for a file
-moc_listamarcas.cxx.s:
-	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/moc_listamarcas.cxx.s
-.PHONY : moc_listamarcas.cxx.s
-
-moc_marca.o: moc_marca.cxx.o
-.PHONY : moc_marca.o
-
-# target to build an object file
-moc_marca.cxx.o:
-	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/moc_marca.cxx.o
-.PHONY : moc_marca.cxx.o
-
-moc_marca.i: moc_marca.cxx.i
-.PHONY : moc_marca.i
+moc_rcismousepickerI.i: moc_rcismousepickerI.cxx.i
+.PHONY : moc_rcismousepickerI.i
 
 # target to preprocess a source file
-moc_marca.cxx.i:
-	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/moc_marca.cxx.i
-.PHONY : moc_marca.cxx.i
+moc_rcismousepickerI.cxx.i:
+	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/moc_rcismousepickerI.cxx.i
+.PHONY : moc_rcismousepickerI.cxx.i
 
-moc_marca.s: moc_marca.cxx.s
-.PHONY : moc_marca.s
-
-# target to generate assembly for a file
-moc_marca.cxx.s:
-	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/moc_marca.cxx.s
-.PHONY : moc_marca.cxx.s
-
-moc_myqtimer.o: moc_myqtimer.cxx.o
-.PHONY : moc_myqtimer.o
-
-# target to build an object file
-moc_myqtimer.cxx.o:
-	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/moc_myqtimer.cxx.o
-.PHONY : moc_myqtimer.cxx.o
-
-moc_myqtimer.i: moc_myqtimer.cxx.i
-.PHONY : moc_myqtimer.i
-
-# target to preprocess a source file
-moc_myqtimer.cxx.i:
-	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/moc_myqtimer.cxx.i
-.PHONY : moc_myqtimer.cxx.i
-
-moc_myqtimer.s: moc_myqtimer.cxx.s
-.PHONY : moc_myqtimer.s
+moc_rcismousepickerI.s: moc_rcismousepickerI.cxx.s
+.PHONY : moc_rcismousepickerI.s
 
 # target to generate assembly for a file
-moc_myqtimer.cxx.s:
-	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/moc_myqtimer.cxx.s
-.PHONY : moc_myqtimer.cxx.s
+moc_rcismousepickerI.cxx.s:
+	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/moc_rcismousepickerI.cxx.s
+.PHONY : moc_rcismousepickerI.cxx.s
 
 moc_specificmonitor.o: moc_specificmonitor.cxx.o
 .PHONY : moc_specificmonitor.o
@@ -708,29 +626,29 @@ moc_specificworker.cxx.s:
 	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/moc_specificworker.cxx.s
 .PHONY : moc_specificworker.cxx.s
 
-myqtimer.o: myqtimer.cpp.o
-.PHONY : myqtimer.o
+rcismousepickerI.o: rcismousepickerI.cpp.o
+.PHONY : rcismousepickerI.o
 
 # target to build an object file
-myqtimer.cpp.o:
-	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/myqtimer.cpp.o
-.PHONY : myqtimer.cpp.o
+rcismousepickerI.cpp.o:
+	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/rcismousepickerI.cpp.o
+.PHONY : rcismousepickerI.cpp.o
 
-myqtimer.i: myqtimer.cpp.i
-.PHONY : myqtimer.i
+rcismousepickerI.i: rcismousepickerI.cpp.i
+.PHONY : rcismousepickerI.i
 
 # target to preprocess a source file
-myqtimer.cpp.i:
-	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/myqtimer.cpp.i
-.PHONY : myqtimer.cpp.i
+rcismousepickerI.cpp.i:
+	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/rcismousepickerI.cpp.i
+.PHONY : rcismousepickerI.cpp.i
 
-myqtimer.s: myqtimer.cpp.s
-.PHONY : myqtimer.s
+rcismousepickerI.s: rcismousepickerI.cpp.s
+.PHONY : rcismousepickerI.s
 
 # target to generate assembly for a file
-myqtimer.cpp.s:
-	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/myqtimer.cpp.s
-.PHONY : myqtimer.cpp.s
+rcismousepickerI.cpp.s:
+	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/rcismousepickerI.cpp.s
+.PHONY : rcismousepickerI.cpp.s
 
 specificmonitor.o: specificmonitor.cpp.o
 .PHONY : specificmonitor.o
@@ -790,7 +708,6 @@ help:
 	@echo "... edit_cache"
 	@echo "... install"
 	@echo "... install/local"
-	@echo "... install/strip"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... AprilTags.o"
@@ -808,6 +725,9 @@ help:
 	@echo "... Laser.o"
 	@echo "... Laser.i"
 	@echo "... Laser.s"
+	@echo "... RCISMousePicker.o"
+	@echo "... RCISMousePicker.i"
+	@echo "... RCISMousePicker.s"
 	@echo "... apriltagsI.o"
 	@echo "... apriltagsI.i"
 	@echo "... apriltagsI.s"
@@ -826,15 +746,9 @@ help:
 	@echo "... home/ivan/robocomp/classes/rapplication/rapplication.o"
 	@echo "... home/ivan/robocomp/classes/rapplication/rapplication.i"
 	@echo "... home/ivan/robocomp/classes/rapplication/rapplication.s"
-	@echo "... listamarcas.o"
-	@echo "... listamarcas.i"
-	@echo "... listamarcas.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
-	@echo "... marca.o"
-	@echo "... marca.i"
-	@echo "... marca.s"
 	@echo "... moc_apriltagsI.o"
 	@echo "... moc_apriltagsI.i"
 	@echo "... moc_apriltagsI.s"
@@ -847,24 +761,18 @@ help:
 	@echo "... moc_genericworker.o"
 	@echo "... moc_genericworker.i"
 	@echo "... moc_genericworker.s"
-	@echo "... moc_listamarcas.o"
-	@echo "... moc_listamarcas.i"
-	@echo "... moc_listamarcas.s"
-	@echo "... moc_marca.o"
-	@echo "... moc_marca.i"
-	@echo "... moc_marca.s"
-	@echo "... moc_myqtimer.o"
-	@echo "... moc_myqtimer.i"
-	@echo "... moc_myqtimer.s"
+	@echo "... moc_rcismousepickerI.o"
+	@echo "... moc_rcismousepickerI.i"
+	@echo "... moc_rcismousepickerI.s"
 	@echo "... moc_specificmonitor.o"
 	@echo "... moc_specificmonitor.i"
 	@echo "... moc_specificmonitor.s"
 	@echo "... moc_specificworker.o"
 	@echo "... moc_specificworker.i"
 	@echo "... moc_specificworker.s"
-	@echo "... myqtimer.o"
-	@echo "... myqtimer.i"
-	@echo "... myqtimer.s"
+	@echo "... rcismousepickerI.o"
+	@echo "... rcismousepickerI.i"
+	@echo "... rcismousepickerI.s"
 	@echo "... specificmonitor.o"
 	@echo "... specificmonitor.i"
 	@echo "... specificmonitor.s"

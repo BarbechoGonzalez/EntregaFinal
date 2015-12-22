@@ -121,8 +121,8 @@ SpecificWorker::statego SpecificWorker::orientarse()
 	QVec objerobot=inner->transform("base",QVec::vec3(objetivoactual.x,0,objetivoactual.z),"world");
 	float rot=atan2(objerobot(0),objerobot(2));
 	if(fabs(rot)>muestreolaser){
-		differentialrobot_proxy->setSpeedBase(0,rot);
-		sleep(1);
+		differentialrobot_proxy->setSpeedBase(0,rot*2);
+		usleep(500000);
 		differentialrobot_proxy->setSpeedBase(0,0);
 	}
 	qDebug() << __FUNCTION__<<"---fin";
@@ -147,19 +147,19 @@ SpecificWorker::statego SpecificWorker::calcularsubobjetivo()
 	float disfinal;
 	float anglefinal;
 	for(i=51;i<100;i++){
-		if((ldata[i].dist)-ldata[i-1].dist>500){
+		if((ldata[i].dist)-ldata[i-1].dist>100){
 			break;
 		}
 	}
 	for(j=49;j>=0;j--){
-		if((ldata[j].dist)-ldata[i+1].dist>500){
+		if((ldata[j].dist)-ldata[i+1].dist>100){
 			break;
 		}
 	}
 	i--;
 	j++;
 		
-	if(abs(i-50)>abs(50-j)){
+	if(abs(i-50)<abs(50-j)){
 		float dist1=ldata[i].dist;
 		float dist2=230;
 		float alpha=abs(asin(dist2/dist1));
@@ -192,7 +192,7 @@ SpecificWorker::statego SpecificWorker::puedopasar()
 	{
 		float x=fabs(sin((ldata.data()+i)->angle)*(ldata.data()+i)->dist);
 		float c=fabs(cos((ldata.data()+i)->angle)*(ldata.data()+i)->dist);
-		if (x<250&&c<distobje)
+		if (x<210&&c<distobje)
 		{
 			return statego::CALCULAROBJETIVO;
 		}
@@ -201,7 +201,7 @@ SpecificWorker::statego SpecificWorker::puedopasar()
 	{
 		float x=fabs(sin((ldata.data()+i)->angle)*(ldata.data()+i)->dist);
 		float c=fabs(cos((ldata.data()+i)->angle)*(ldata.data()+i)->dist);
-		if (x<250&&c<distobje)
+		if (x<210&&c<distobje)
 		{
 			return statego::CALCULAROBJETIVO;
 		}

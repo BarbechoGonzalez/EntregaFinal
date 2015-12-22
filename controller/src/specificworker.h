@@ -100,8 +100,8 @@ private:
 	LengthMap *cost;
 	Node robotnode;
 	QGraphicsEllipseItem *circulo;
-	QVec anterior;
-	QVec n;
+	QVec anterior,n;
+	QVec pick;
 	float muestreolaser;
 
 	lemon::Path<lemon::ListGraph> path;
@@ -119,6 +119,7 @@ private:
 	bool esquina();
 	void accionEsquina();
 	void newAprilTag(const tagsList &tags);
+	void setPick(const Pick &myPick);
 	void writeinfo(string _info);
 	void writeinfoTag(string _info);
 	void pintarRobot(QVec origen, QVec destino);
