@@ -386,53 +386,29 @@ genericworker.cpp.s:
 	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/genericworker.cpp.s
 .PHONY : genericworker.cpp.s
 
-home/ivan/robocomp/classes/qlog/qlog.o: home/ivan/robocomp/classes/qlog/qlog.cpp.o
-.PHONY : home/ivan/robocomp/classes/qlog/qlog.o
+listamarcas.o: listamarcas.cpp.o
+.PHONY : listamarcas.o
 
 # target to build an object file
-home/ivan/robocomp/classes/qlog/qlog.cpp.o:
-	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/home/ivan/robocomp/classes/qlog/qlog.cpp.o
-.PHONY : home/ivan/robocomp/classes/qlog/qlog.cpp.o
+listamarcas.cpp.o:
+	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/listamarcas.cpp.o
+.PHONY : listamarcas.cpp.o
 
-home/ivan/robocomp/classes/qlog/qlog.i: home/ivan/robocomp/classes/qlog/qlog.cpp.i
-.PHONY : home/ivan/robocomp/classes/qlog/qlog.i
-
-# target to preprocess a source file
-home/ivan/robocomp/classes/qlog/qlog.cpp.i:
-	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/home/ivan/robocomp/classes/qlog/qlog.cpp.i
-.PHONY : home/ivan/robocomp/classes/qlog/qlog.cpp.i
-
-home/ivan/robocomp/classes/qlog/qlog.s: home/ivan/robocomp/classes/qlog/qlog.cpp.s
-.PHONY : home/ivan/robocomp/classes/qlog/qlog.s
-
-# target to generate assembly for a file
-home/ivan/robocomp/classes/qlog/qlog.cpp.s:
-	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/home/ivan/robocomp/classes/qlog/qlog.cpp.s
-.PHONY : home/ivan/robocomp/classes/qlog/qlog.cpp.s
-
-home/ivan/robocomp/classes/rapplication/rapplication.o: home/ivan/robocomp/classes/rapplication/rapplication.cpp.o
-.PHONY : home/ivan/robocomp/classes/rapplication/rapplication.o
-
-# target to build an object file
-home/ivan/robocomp/classes/rapplication/rapplication.cpp.o:
-	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/home/ivan/robocomp/classes/rapplication/rapplication.cpp.o
-.PHONY : home/ivan/robocomp/classes/rapplication/rapplication.cpp.o
-
-home/ivan/robocomp/classes/rapplication/rapplication.i: home/ivan/robocomp/classes/rapplication/rapplication.cpp.i
-.PHONY : home/ivan/robocomp/classes/rapplication/rapplication.i
+listamarcas.i: listamarcas.cpp.i
+.PHONY : listamarcas.i
 
 # target to preprocess a source file
-home/ivan/robocomp/classes/rapplication/rapplication.cpp.i:
-	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/home/ivan/robocomp/classes/rapplication/rapplication.cpp.i
-.PHONY : home/ivan/robocomp/classes/rapplication/rapplication.cpp.i
+listamarcas.cpp.i:
+	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/listamarcas.cpp.i
+.PHONY : listamarcas.cpp.i
 
-home/ivan/robocomp/classes/rapplication/rapplication.s: home/ivan/robocomp/classes/rapplication/rapplication.cpp.s
-.PHONY : home/ivan/robocomp/classes/rapplication/rapplication.s
+listamarcas.s: listamarcas.cpp.s
+.PHONY : listamarcas.s
 
 # target to generate assembly for a file
-home/ivan/robocomp/classes/rapplication/rapplication.cpp.s:
-	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/home/ivan/robocomp/classes/rapplication/rapplication.cpp.s
-.PHONY : home/ivan/robocomp/classes/rapplication/rapplication.cpp.s
+listamarcas.cpp.s:
+	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/listamarcas.cpp.s
+.PHONY : listamarcas.cpp.s
 
 main.o: main.cpp.o
 .PHONY : main.o
@@ -457,6 +433,30 @@ main.s: main.cpp.s
 main.cpp.s:
 	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/main.cpp.s
 .PHONY : main.cpp.s
+
+marca.o: marca.cpp.o
+.PHONY : marca.o
+
+# target to build an object file
+marca.cpp.o:
+	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/marca.cpp.o
+.PHONY : marca.cpp.o
+
+marca.i: marca.cpp.i
+.PHONY : marca.i
+
+# target to preprocess a source file
+marca.cpp.i:
+	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/marca.cpp.i
+.PHONY : marca.cpp.i
+
+marca.s: marca.cpp.s
+.PHONY : marca.s
+
+# target to generate assembly for a file
+marca.cpp.s:
+	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/marca.cpp.s
+.PHONY : marca.cpp.s
 
 moc_apriltagsI.o: moc_apriltagsI.cxx.o
 .PHONY : moc_apriltagsI.o
@@ -554,6 +554,78 @@ moc_genericworker.cxx.s:
 	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/moc_genericworker.cxx.s
 .PHONY : moc_genericworker.cxx.s
 
+moc_listamarcas.o: moc_listamarcas.cxx.o
+.PHONY : moc_listamarcas.o
+
+# target to build an object file
+moc_listamarcas.cxx.o:
+	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/moc_listamarcas.cxx.o
+.PHONY : moc_listamarcas.cxx.o
+
+moc_listamarcas.i: moc_listamarcas.cxx.i
+.PHONY : moc_listamarcas.i
+
+# target to preprocess a source file
+moc_listamarcas.cxx.i:
+	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/moc_listamarcas.cxx.i
+.PHONY : moc_listamarcas.cxx.i
+
+moc_listamarcas.s: moc_listamarcas.cxx.s
+.PHONY : moc_listamarcas.s
+
+# target to generate assembly for a file
+moc_listamarcas.cxx.s:
+	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/moc_listamarcas.cxx.s
+.PHONY : moc_listamarcas.cxx.s
+
+moc_marca.o: moc_marca.cxx.o
+.PHONY : moc_marca.o
+
+# target to build an object file
+moc_marca.cxx.o:
+	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/moc_marca.cxx.o
+.PHONY : moc_marca.cxx.o
+
+moc_marca.i: moc_marca.cxx.i
+.PHONY : moc_marca.i
+
+# target to preprocess a source file
+moc_marca.cxx.i:
+	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/moc_marca.cxx.i
+.PHONY : moc_marca.cxx.i
+
+moc_marca.s: moc_marca.cxx.s
+.PHONY : moc_marca.s
+
+# target to generate assembly for a file
+moc_marca.cxx.s:
+	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/moc_marca.cxx.s
+.PHONY : moc_marca.cxx.s
+
+moc_myqtimer.o: moc_myqtimer.cxx.o
+.PHONY : moc_myqtimer.o
+
+# target to build an object file
+moc_myqtimer.cxx.o:
+	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/moc_myqtimer.cxx.o
+.PHONY : moc_myqtimer.cxx.o
+
+moc_myqtimer.i: moc_myqtimer.cxx.i
+.PHONY : moc_myqtimer.i
+
+# target to preprocess a source file
+moc_myqtimer.cxx.i:
+	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/moc_myqtimer.cxx.i
+.PHONY : moc_myqtimer.cxx.i
+
+moc_myqtimer.s: moc_myqtimer.cxx.s
+.PHONY : moc_myqtimer.s
+
+# target to generate assembly for a file
+moc_myqtimer.cxx.s:
+	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/moc_myqtimer.cxx.s
+.PHONY : moc_myqtimer.cxx.s
+
 moc_rcismousepickerI.o: moc_rcismousepickerI.cxx.o
 .PHONY : moc_rcismousepickerI.o
 
@@ -625,6 +697,78 @@ moc_specificworker.s: moc_specificworker.cxx.s
 moc_specificworker.cxx.s:
 	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/moc_specificworker.cxx.s
 .PHONY : moc_specificworker.cxx.s
+
+myqtimer.o: myqtimer.cpp.o
+.PHONY : myqtimer.o
+
+# target to build an object file
+myqtimer.cpp.o:
+	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/myqtimer.cpp.o
+.PHONY : myqtimer.cpp.o
+
+myqtimer.i: myqtimer.cpp.i
+.PHONY : myqtimer.i
+
+# target to preprocess a source file
+myqtimer.cpp.i:
+	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/myqtimer.cpp.i
+.PHONY : myqtimer.cpp.i
+
+myqtimer.s: myqtimer.cpp.s
+.PHONY : myqtimer.s
+
+# target to generate assembly for a file
+myqtimer.cpp.s:
+	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/myqtimer.cpp.s
+.PHONY : myqtimer.cpp.s
+
+opt/robocomp/classes/qlog/qlog.o: opt/robocomp/classes/qlog/qlog.cpp.o
+.PHONY : opt/robocomp/classes/qlog/qlog.o
+
+# target to build an object file
+opt/robocomp/classes/qlog/qlog.cpp.o:
+	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/opt/robocomp/classes/qlog/qlog.cpp.o
+.PHONY : opt/robocomp/classes/qlog/qlog.cpp.o
+
+opt/robocomp/classes/qlog/qlog.i: opt/robocomp/classes/qlog/qlog.cpp.i
+.PHONY : opt/robocomp/classes/qlog/qlog.i
+
+# target to preprocess a source file
+opt/robocomp/classes/qlog/qlog.cpp.i:
+	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/opt/robocomp/classes/qlog/qlog.cpp.i
+.PHONY : opt/robocomp/classes/qlog/qlog.cpp.i
+
+opt/robocomp/classes/qlog/qlog.s: opt/robocomp/classes/qlog/qlog.cpp.s
+.PHONY : opt/robocomp/classes/qlog/qlog.s
+
+# target to generate assembly for a file
+opt/robocomp/classes/qlog/qlog.cpp.s:
+	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/opt/robocomp/classes/qlog/qlog.cpp.s
+.PHONY : opt/robocomp/classes/qlog/qlog.cpp.s
+
+opt/robocomp/classes/rapplication/rapplication.o: opt/robocomp/classes/rapplication/rapplication.cpp.o
+.PHONY : opt/robocomp/classes/rapplication/rapplication.o
+
+# target to build an object file
+opt/robocomp/classes/rapplication/rapplication.cpp.o:
+	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/opt/robocomp/classes/rapplication/rapplication.cpp.o
+.PHONY : opt/robocomp/classes/rapplication/rapplication.cpp.o
+
+opt/robocomp/classes/rapplication/rapplication.i: opt/robocomp/classes/rapplication/rapplication.cpp.i
+.PHONY : opt/robocomp/classes/rapplication/rapplication.i
+
+# target to preprocess a source file
+opt/robocomp/classes/rapplication/rapplication.cpp.i:
+	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/opt/robocomp/classes/rapplication/rapplication.cpp.i
+.PHONY : opt/robocomp/classes/rapplication/rapplication.cpp.i
+
+opt/robocomp/classes/rapplication/rapplication.s: opt/robocomp/classes/rapplication/rapplication.cpp.s
+.PHONY : opt/robocomp/classes/rapplication/rapplication.s
+
+# target to generate assembly for a file
+opt/robocomp/classes/rapplication/rapplication.cpp.s:
+	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/opt/robocomp/classes/rapplication/rapplication.cpp.s
+.PHONY : opt/robocomp/classes/rapplication/rapplication.cpp.s
 
 rcismousepickerI.o: rcismousepickerI.cpp.o
 .PHONY : rcismousepickerI.o
@@ -740,15 +884,15 @@ help:
 	@echo "... genericworker.o"
 	@echo "... genericworker.i"
 	@echo "... genericworker.s"
-	@echo "... home/ivan/robocomp/classes/qlog/qlog.o"
-	@echo "... home/ivan/robocomp/classes/qlog/qlog.i"
-	@echo "... home/ivan/robocomp/classes/qlog/qlog.s"
-	@echo "... home/ivan/robocomp/classes/rapplication/rapplication.o"
-	@echo "... home/ivan/robocomp/classes/rapplication/rapplication.i"
-	@echo "... home/ivan/robocomp/classes/rapplication/rapplication.s"
+	@echo "... listamarcas.o"
+	@echo "... listamarcas.i"
+	@echo "... listamarcas.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... marca.o"
+	@echo "... marca.i"
+	@echo "... marca.s"
 	@echo "... moc_apriltagsI.o"
 	@echo "... moc_apriltagsI.i"
 	@echo "... moc_apriltagsI.s"
@@ -761,6 +905,15 @@ help:
 	@echo "... moc_genericworker.o"
 	@echo "... moc_genericworker.i"
 	@echo "... moc_genericworker.s"
+	@echo "... moc_listamarcas.o"
+	@echo "... moc_listamarcas.i"
+	@echo "... moc_listamarcas.s"
+	@echo "... moc_marca.o"
+	@echo "... moc_marca.i"
+	@echo "... moc_marca.s"
+	@echo "... moc_myqtimer.o"
+	@echo "... moc_myqtimer.i"
+	@echo "... moc_myqtimer.s"
 	@echo "... moc_rcismousepickerI.o"
 	@echo "... moc_rcismousepickerI.i"
 	@echo "... moc_rcismousepickerI.s"
@@ -770,6 +923,15 @@ help:
 	@echo "... moc_specificworker.o"
 	@echo "... moc_specificworker.i"
 	@echo "... moc_specificworker.s"
+	@echo "... myqtimer.o"
+	@echo "... myqtimer.i"
+	@echo "... myqtimer.s"
+	@echo "... opt/robocomp/classes/qlog/qlog.o"
+	@echo "... opt/robocomp/classes/qlog/qlog.i"
+	@echo "... opt/robocomp/classes/qlog/qlog.s"
+	@echo "... opt/robocomp/classes/rapplication/rapplication.o"
+	@echo "... opt/robocomp/classes/rapplication/rapplication.i"
+	@echo "... opt/robocomp/classes/rapplication/rapplication.s"
 	@echo "... rcismousepickerI.o"
 	@echo "... rcismousepickerI.i"
 	@echo "... rcismousepickerI.s"

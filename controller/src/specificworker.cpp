@@ -45,7 +45,6 @@ SpecificWorker::SpecificWorker(MapPrx& mprx) : GenericWorker(mprx)
 	threshold = 400;
 	velmax=270;	//velocidad maxima del robot
 	velmaxg=1.5;
-	
 	inner = new InnerModel("/home/ivan/robocomp/files/innermodel/simpleworld.xml");
 // 	inner = new InnerModel("/home/ivan/robocomp/files/innermodel/RoCKIn@home/world/apartment.xml");
 	map = new MapQVec(Grafo);
@@ -58,7 +57,8 @@ SpecificWorker::SpecificWorker(MapPrx& mprx) : GenericWorker(mprx)
 	pintarRobot( a, a);
 	ldata = laser_proxy->getLaserData();
 	muestreolaser=(ldata[51].angle-ldata[50].angle);
-	pick=QVec::vec3(0,0,0);;
+	pick=QVec::vec3(0,0,0);
+	circulo=NULL;
 
 // 	differentialrobot_proxy->setOdometerPose(0,0,state.alpha);
 }
@@ -123,13 +123,17 @@ SpecificWorker::State SpecificWorker::mapear()
   try
   {
 // 		get a random state
+
 		borrarcirculo();
+		qDebug()<<"-a---";
 		if(pick==QVec::vec3(0,0,0))
 			this->n = QVec::uniformVector(3, -FLOOR, FLOOR);
 		else{
 			n=pick;
 			pick=QVec::vec3(0,0,0);
 		}
+			
+
 		n[1] = 0;  //to avoid y
 		pintardestino(n);//azul
 		writeinfo("Point = ("+to_string(n(0))+","+to_string(n(2))+")");	
@@ -360,6 +364,9 @@ void SpecificWorker::parar()
 {
 	startbutton=false;
 	st=State::INIT;
+	while (!pila.isEmpty())
+		pila.pop();
+	borrarcirculo();
 	differentialrobot_proxy->setSpeedBase(0, 0);
 }
 void SpecificWorker::writeinfo(string _info)
