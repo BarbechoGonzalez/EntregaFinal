@@ -43,6 +43,7 @@
 #include <lemon/list_graph.h>
 #include <lemon/dijkstra.h>
 #include <qt4/QtCore/QStack>
+#include <sstream>
 
 
 using namespace lemon;

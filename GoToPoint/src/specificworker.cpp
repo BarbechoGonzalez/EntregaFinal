@@ -33,6 +33,7 @@ SpecificWorker::SpecificWorker(MapPrx& mprx) : GenericWorker(mprx)
 	graphicsView->setScene(&scene);
 	graphicsView->show();
 	graphicsView->scale(3,3);
+	state.SubPoints="";
 }
 
 /**
@@ -81,6 +82,7 @@ float SpecificWorker::go(const TargetPose &target)
 		QMutexLocker ml(&m);
 		posetag={target.x,target.y,target.z};;
 		objetivoactual={target.x,target.y,target.z};
+		state.SubPoints="";
 	}
 }
 NavState SpecificWorker::getState()
@@ -152,7 +154,7 @@ SpecificWorker::statego SpecificWorker::calcularsubobjetivo()
 		}
 	}
 	for(j=49;j>=0;j--){
-		if((ldata[j].dist)-ldata[i+1].dist>100){
+		if((ldata[j].dist)-ldata[j+1].dist>100){
 			break;
 		}
 	}
@@ -161,7 +163,7 @@ SpecificWorker::statego SpecificWorker::calcularsubobjetivo()
 		
 	if(abs(i-50)<abs(50-j)){
 		float dist1=ldata[i].dist;
-		float dist2=230;
+		float dist2=210;
 		float alpha=abs(asin(dist2/dist1));
 		disfinal=ldata[i+2].dist/2;
 		anglefinal=alpha+abs(ldata[i].angle);
@@ -170,7 +172,7 @@ SpecificWorker::statego SpecificWorker::calcularsubobjetivo()
 	else 
 	{
 		float dist1=ldata[j].dist;
-		float dist2=230;
+		float dist2=210;
 		float alpha=abs(asin(dist2/dist1));
 		disfinal=ldata[j-2].dist/2;
 		anglefinal=alpha+abs(ldata[j].angle);
@@ -192,7 +194,7 @@ SpecificWorker::statego SpecificWorker::puedopasar()
 	{
 		float x=fabs(sin((ldata.data()+i)->angle)*(ldata.data()+i)->dist);
 		float c=fabs(cos((ldata.data()+i)->angle)*(ldata.data()+i)->dist);
-		if (x<210&&c<distobje)
+		if (x<200&&c<distobje)
 		{
 			return statego::CALCULAROBJETIVO;
 		}
@@ -201,7 +203,7 @@ SpecificWorker::statego SpecificWorker::puedopasar()
 	{
 		float x=fabs(sin((ldata.data()+i)->angle)*(ldata.data()+i)->dist);
 		float c=fabs(cos((ldata.data()+i)->angle)*(ldata.data()+i)->dist);
-		if (x<210&&c<distobje)
+		if (x<200&&c<distobje)
 		{
 			return statego::CALCULAROBJETIVO;
 		}
@@ -213,6 +215,7 @@ void SpecificWorker::hellegado()
 	qDebug() << __FUNCTION__<<"---inicio";
 	if(fabs(Basestate.z-objetivoactual.z)<100&&fabs(Basestate.x-objetivoactual.x)<100)
 	{
+		state.SubPoints=state.SubPoints+"/"+to_string(objetivoactual.x)+" "+to_string(objetivoactual.z);
 		m.lock();
 		if (objetivoactual.x==posetag.x&&objetivoactual.z==posetag.z)
 		{

@@ -1,4 +1,4 @@
-FILE(REMOVE_RECURSE
+file(REMOVE_RECURSE
   "CommonBehavior.cpp"
   "CommonBehavior.h"
   "DifferentialRobot.cpp"
@@ -24,8 +24,8 @@ FILE(REMOVE_RECURSE
   "ui_mainUI.h"
   "CMakeFiles/controller.dir/specificworker.cpp.o"
   "CMakeFiles/controller.dir/specificmonitor.cpp.o"
-  "CMakeFiles/controller.dir/opt/robocomp/classes/rapplication/rapplication.cpp.o"
-  "CMakeFiles/controller.dir/opt/robocomp/classes/qlog/qlog.cpp.o"
+  "CMakeFiles/controller.dir/home/ivan/robocomp/classes/rapplication/rapplication.cpp.o"
+  "CMakeFiles/controller.dir/home/ivan/robocomp/classes/qlog/qlog.cpp.o"
   "CMakeFiles/controller.dir/main.cpp.o"
   "CMakeFiles/controller.dir/genericmonitor.cpp.o"
   "CMakeFiles/controller.dir/commonbehaviorI.cpp.o"
@@ -56,6 +56,6 @@ FILE(REMOVE_RECURSE
 )
 
 # Per-language clean rules from dependency scanning.
-FOREACH(lang CXX)
-  INCLUDE(CMakeFiles/controller.dir/cmake_clean_${lang}.cmake OPTIONAL)
-ENDFOREACH(lang)
+foreach(lang CXX)
+  include(CMakeFiles/controller.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

@@ -72,7 +72,6 @@ public:
 	virtual NavState getState() = 0;
 	virtual void stop() = 0;
 
-
 protected:
 	QTimer timer;
 	int Period;

@@ -103,6 +103,37 @@ void SpecificWorker::compute()
 			case State::HELLEGADO:
 					if(s.state=="FINISH"||s.state=="IDLE"){
 						st=State::MAPEAR;
+						cout << s.SubPoints <<endl;
+						
+						char *puntos = new char[s.SubPoints.length() + 1];
+						strcpy(puntos, s.SubPoints.c_str());
+						char * pch;
+						pch = strtok (puntos,"/");
+						QVec Sub=QVec::vec3(0,0,0);
+						while (pch != NULL)
+						{	
+							printf ("%s\n",pch);
+							char *pEnd;
+							Sub(0)=strtof(pch,&pEnd);
+							Sub(2)=strtof(pEnd,NULL);
+							
+							//add new node to the graph
+							lemon::ListGraph::Node newP = Grafo.addNode();
+							map->set(newP, Sub);
+							lemon::ListGraph::Edge newEdge = Grafo.addEdge(robotnode,newP);
+							cost->set( newEdge, (map->operator[](newP) - map->operator[](robotnode)).norm2());
+							
+							pintarRobot(map->operator[](robotnode),map->operator[](newP));
+							robotnode=newP;
+							pch = strtok (NULL, "/");
+							
+							
+						}
+						qDebug() << "Listing the graph";
+						for (lemon::ListGraph::NodeIt n(Grafo); n != lemon::INVALID; ++n)
+							qDebug() << map->operator[](n);
+						qDebug() << "---------------";
+						
 					}
 			  break;
 			case State::GOTOPOINTS:
@@ -174,32 +205,25 @@ SpecificWorker::State SpecificWorker::checkpoint()
 	qDebug() << __FUNCTION__<<"---inicio";
 	QVec qposR = inner->transform("laser",n,"world");
 	float alfa = atan2(qposR.x(), qposR.z());
-	girar(alfa);
-	alfa = atan2(qposR.x(), qposR.z());
 	if(fabs(alfa)>fabs(muestreolaser*2))
+	{
+		girar(alfa);
 		return State::CHECKPOINT;
+	}
 	float dist = qposR.norm2();
-	if( ldata[50].dist < dist + ROBOT_RADIUS)							//Posible error al orientarse
-		n = inner->laserTo("world","laser",ldata[50].dist-ROBOT_RADIUS,ldata[50].angle);
-
-	//add new node to the graph
-	lemon::ListGraph::Node newP = Grafo.addNode();
-	map->set(newP, n);
-	lemon::ListGraph::Edge newEdge = Grafo.addEdge(robotnode,newP);
-	cost->set( newEdge, (map->operator[](newP) - map->operator[](robotnode)).norm2());
+	if( ldata[50].dist < dist + ROBOT_RADIUS)
+	{
+// 		n = inner->laserTo("world","laser",ldata[50].dist-ROBOT_RADIUS,0);
+		n = inner->transform("laser",qposR.normalize() * (float)(ldata[50].dist - ROBOT_RADIUS*1.9),"world");
+		return State::CHECKPOINT;
+	}
 	
-	qDebug() << "Listing the graph";
-	for (lemon::ListGraph::NodeIt n(Grafo); n != lemon::INVALID; ++n)
-		qDebug() << map->operator[](n);
-	qDebug() << "---------------";
 	RoboCompController::TargetPose t;
 	t.x=n(0);
 	t.z=n(2);
 	t.y=0;
 	qDebug()<<"goto----"<<n;
 	controller_proxy->go(t);
-	pintarRobot(map->operator[](robotnode),map->operator[](newP));
-	robotnode=newP;
 	return State::HELLEGADO;
 	
 }
