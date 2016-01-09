@@ -120,7 +120,7 @@ void SpecificWorker::gototarget()
 SpecificWorker::statego SpecificWorker::orientarse()
 {
 	qDebug() << __FUNCTION__<<"---inicio";
-	QVec objerobot=inner->transform("base",QVec::vec3(objetivoactual.x,0,objetivoactual.z),"world");
+	QVec objerobot=inner->transform("laser",QVec::vec3(objetivoactual.x,0,objetivoactual.z),"world");
 	float rot=atan2(objerobot(0),objerobot(2));
 	if(fabs(rot)>muestreolaser){
 		differentialrobot_proxy->setSpeedBase(0,rot*2);
@@ -145,7 +145,7 @@ SpecificWorker::statego SpecificWorker::hayobtaculo()
 SpecificWorker::statego SpecificWorker::calcularsubobjetivo()
 {
 	qDebug() << __FUNCTION__<<"---inicio";
-	int i,j;
+	int i,j,k,l;
 	float disfinal;
 	float anglefinal;
 	for(i=51;i<100;i++){
@@ -158,37 +158,109 @@ SpecificWorker::statego SpecificWorker::calcularsubobjetivo()
 			break;
 		}
 	}
+	for(k=51;k<100;k++){
+		if((ldata[k-1].dist)-ldata[k].dist>100){
+			break;
+		}
+	}
+	for(l=49;l>=0;l--){
+		if((ldata[l+1].dist)-ldata[l].dist>100){
+			break;
+		}
+	}
+	
 	i--;
 	j++;
-		
-	if(abs(i-50)<abs(50-j)){
-		float dist1=ldata[i].dist;
-		float dist2=210;
-		float alpha=abs(asin(dist2/dist1));
-		disfinal=ldata[i+2].dist/2;
-		anglefinal=alpha+abs(ldata[i].angle);
-		anglefinal=anglefinal;
+	float dist1, dist2=220,alpha;
+	int a[]={i,k,j,l};
+	for(int h=0;h<4;h++){
+		dist1=ldata[a[h]].dist;
+		alpha=fabs(asin(dist2/dist1));
+		anglefinal=alpha+ldata[a[h]].angle;
+		QVec objerobot=inner->transform("laser",QVec::vec3(objetivoactual.x,0,objetivoactual.z),"world");
+		disfinal=objerobot.norm2()-500;
+		QVec obj=inner->laserTo("laser","laser",disfinal,anglefinal);
+		if(!puedopasar2(obj))
+			a[h]=-1;
 	}
+	int c;
+	if(a[0]!=-1&&a[1]!=-1)
+		c=min(abs(i-50),abs(k-50));
+	else if(a[0]!=1)
+		c=abs(i-50);
+	else if(a[1]!=1)
+		c=abs(k-50);
+	else c =-1;
+	
+	int b;
+	if(a[2]!=-1&&a[3]!=-1)
+		b=min(abs(j-50),abs(j-50));
+	else if(a[2]!=1)
+		b=abs(j-50);
+	else if(a[3]!=1)
+		b=abs(l-50);
+	else b=-1;
+	
+	int aux;
+	if (c!=1&&b!=1)
+		aux=min(c,b);
 	else 
-	{
-		float dist1=ldata[j].dist;
-		float dist2=210;
-		float alpha=abs(asin(dist2/dist1));
-		disfinal=ldata[j-2].dist/2;
-		anglefinal=alpha+abs(ldata[j].angle);
-		anglefinal=-anglefinal;
+		aux=max(c,b);
+
+	if(aux==abs(i-50)){
+		dist1=ldata[i].dist;
+		alpha=fabs(asin(dist2/dist1));
+		anglefinal=alpha+ldata[i].angle;
 	}
+	else if(aux==abs(50-j)){
+		dist1=ldata[j].dist;
+		alpha=fabs(asin(dist2/dist1));
+		anglefinal=-alpha+ldata[j].angle;
+	}
+	else if(aux==abs(k-50)){
+		dist1=ldata[k].dist;
+		alpha=fabs(asin(dist2/dist1));
+		anglefinal=+alpha+ldata[k].angle;
+	}
+	else{
+		dist1=ldata[l].dist;
+		alpha=fabs(asin(dist2/dist1));
+		anglefinal=-alpha+ldata[l].angle;		//mejorar
+	}	
+	QVec objerobot=inner->transform("laser",QVec::vec3(objetivoactual.x,0,objetivoactual.z),"world");
+	disfinal=objerobot.norm2()-500;
+// 	if (disfinal>2000) 
+// 		disfinal/=4;
+// 	else
+// 		disfinal/=2;
 	QVec obj=inner->laserTo("world","laser",disfinal,anglefinal);
+	
+
 	subobjetivo={obj(0),0,obj(2)};
 	objetivoactual={obj(0),0,obj(2)};
 	qDebug() << __FUNCTION__<<"---fin";
 	return statego::ORIENTARSE;
 }
+
+bool SpecificWorker::puntocontenido(QVec P1, QVec P2, QVec P)
+{
+	float m=(P2.z()-P1.z())/(P2.x()-P1.x());
+	float A,B,C,dist;
+	A=m;
+	B=-1;
+	C=P.z()+m*(-P.x());
+	dist=abs(A*P.x()+B*P.z()+C)/sqrt(A*A+B*B);
+	if(dist<2)
+		return true;
+	return false;
+}
+
+
 SpecificWorker::statego SpecificWorker::puedopasar()
 {	
 	qDebug() << __FUNCTION__<<"---inicio";
 	int i;
-	QVec objerobot=inner->transform("base",QVec::vec3(objetivoactual.x,0,objetivoactual.z),"world");
+	QVec objerobot=inner->transform("laser",QVec::vec3(objetivoactual.x,0,objetivoactual.z),"world");
 	float distobje=sqrt(objerobot(0)*objerobot(0)+objerobot(2)*objerobot(2));
 	for(i=51;i<100;i++)
 	{
@@ -210,10 +282,43 @@ SpecificWorker::statego SpecificWorker::puedopasar()
 	}
 	return statego::AVANZAR;
 }
+bool SpecificWorker::puedopasar2(QVec objerobot)
+{	
+	qDebug() << __FUNCTION__<<"---inicio";
+	int i;
+	float distobje=objerobot.norm2();
+	int a=atan(objerobot(2)/objerobot(0))/muestreolaser;
+	qDebug()<<a;
+	if(a>=0) a+=50;
+	else a=-a;
+	if(30<a&&a<70){
+		for(i=a;i<100;i++)
+		{
+			float x=fabs(sin((ldata.data()+i)->angle)*(ldata.data()+i)->dist);
+			float c=fabs(cos((ldata.data()+i)->angle)*(ldata.data()+i)->dist);
+			if (x<200&&c<distobje)
+			{
+				return false;
+			}
+		}
+		for(i=a;i>0;i--)
+		{
+			float x=fabs(sin((ldata.data()+i)->angle)*(ldata.data()+i)->dist);
+			float c=fabs(cos((ldata.data()+i)->angle)*(ldata.data()+i)->dist);
+			if (x<200&&c<distobje)
+			{
+				return false;
+			}
+		}
+	return true;
+	}
+	return false;
+	qDebug() << __FUNCTION__<<"---fin";
+}
 void SpecificWorker::hellegado()
 {
 	qDebug() << __FUNCTION__<<"---inicio";
-	if(fabs(Basestate.z-objetivoactual.z)<100&&fabs(Basestate.x-objetivoactual.x)<100)
+	if(fabs(Basestate.z-objetivoactual.z)<50&&fabs(Basestate.x-objetivoactual.x)<50)
 	{
 		state.SubPoints=state.SubPoints+"/"+to_string(objetivoactual.x)+" "+to_string(objetivoactual.z);
 		m.lock();
@@ -230,9 +335,17 @@ void SpecificWorker::hellegado()
 	}
 	else
 	{
-		QVec objerobot=inner->transform("base",QVec::vec3(objetivoactual.x,0,objetivoactual.z),"world");
+		QVec objerobot=inner->transform("laser",QVec::vec3(objetivoactual.x,0,objetivoactual.z),"world");
 		float rot=atan2(objerobot(0),objerobot(2));
 		differentialrobot_proxy->setSpeedBase(500,rot);
+		if (objetivoactual.x!=posetag.x&&objetivoactual.z!=posetag.z)
+			QVec objerobot=inner->transform("laser",QVec::vec3(posetag.x,0,posetag.z),"world");
+			if(puedopasar2(objerobot)){
+				differentialrobot_proxy->setSpeedBase(0,0);
+				objetivoactual=posetag;
+				stgo=statego::ORIENTARSE;
+				state.SubPoints=state.SubPoints+"/"+to_string(Basestate.x)+" "+to_string(Basestate.z);
+			}
 	}
 	qDebug() << __FUNCTION__<<"---fin";
 }

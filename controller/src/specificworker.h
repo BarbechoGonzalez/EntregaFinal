@@ -44,6 +44,7 @@
 #include <lemon/dijkstra.h>
 #include <qt4/QtCore/QStack>
 #include <sstream>
+// #include <curses.h>
 
 
 using namespace lemon;
@@ -61,7 +62,7 @@ typedef Graph::NodeMap<QVec> MapQVec;
 typedef Graph::NodeMap<int> Mapint;
 typedef lemon::Path<Graph::Graph> Path;
 
-#define ROBOT_SIZE 400.f
+#define ROBOT_SIZE 470.f
 #define ROBOT_RADIUS 200.f
 #define FLOOR 2100
 public:
@@ -94,6 +95,7 @@ private:
 	TBaseState state;
 	RoboCompLaser::TLaserData ldata;
 	RoboCompLaser::TLaserData ldatacota;
+	RoboCompLaser::TLaserData ldatasinord;
 	listaMarcas marcas;
 	InnerModel *inner;
 	Graph Grafo;

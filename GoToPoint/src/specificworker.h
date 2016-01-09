@@ -73,10 +73,12 @@ private:
 	statego hayobtaculo();
 	statego calcularsubobjetivo();
 	statego puedopasar();
+	bool puedopasar2(QVec objerobot);
 	void hellegado();
 	statego avanzar();
 	void writeinfo(string _info);
 	void histogram();
+	bool puntocontenido(QVec P1, QVec P2, QVec P);
 };
 
 #endif

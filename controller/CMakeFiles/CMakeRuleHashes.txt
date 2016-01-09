@@ -1,7 +1,7 @@
 # Hashes of file build rules.
 84266bf16564d8c95b851d3f4830677f src/AprilTags.cpp
 ebfe2cf314768fc45b99585ce1ee1086 src/CommonBehavior.cpp
-761da1b2f8ba10dc49b2087ae172c73e src/Controller.cpp
+6e5342eeb788a68010c08b7921599275 src/Controller.cpp
 2da1e2baa4b19f2c9ed9b0e8bcb58923 src/DifferentialRobot.cpp
 46bedbec7d8b52176a42cb0ca7dadda7 src/Laser.cpp
 2dbd0e7319a4ef74eb50adefd8c78a99 src/RCISMousePicker.cpp
@@ -9,6 +9,9 @@ c95f3fc70c309e721882e11cb1d19990 src/moc_apriltagsI.cxx
 93a7532681cd5aff784642406b5cc676 src/moc_commonbehaviorI.cxx
 165bd2949e7f453eae7c70c28a4da464 src/moc_genericmonitor.cxx
 44fcaeb2de2bb3de19a7404635d9617f src/moc_genericworker.cxx
+d3b778ab4a20ef77462685164373592c src/moc_listamarcas.cxx
+99e3fe742cd4a2f51d2be10173704520 src/moc_marca.cxx
+b422f9d74ba88d1ba3bf01d777bd4eb3 src/moc_myqtimer.cxx
 5a6a7bb58cba9f9c81a0e6a553507d85 src/moc_rcismousepickerI.cxx
 d0e67daca67565e904efe685835d367e src/moc_specificmonitor.cxx
 31df1953ef8a2c3a22b20b9ccbca56bc src/moc_specificworker.cxx

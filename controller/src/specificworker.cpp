@@ -59,7 +59,9 @@ SpecificWorker::SpecificWorker(MapPrx& mprx) : GenericWorker(mprx)
 	muestreolaser=(ldata[51].angle-ldata[50].angle);
 	pick=QVec::vec3(0,0,0);
 	circulo=NULL;
-
+// 	initscr();
+// 	keypad(stdscr, 1);
+// 	cbreak();
 // 	differentialrobot_proxy->setOdometerPose(0,0,state.alpha);
 }
 
@@ -80,6 +82,7 @@ void SpecificWorker::compute()
 	{
 		ldata = laser_proxy->getLaserData();
 		ldatacota = laser_proxy->getLaserData();
+		ldatasinord = laser_proxy->getLaserData();
 		std::sort( ldata.begin(), ldata.end(), [](RoboCompLaser::TData a, RoboCompLaser::TData b){ return (a.dist < b.dist); }) ;  //sort laser data from small to $
 		std::sort( ldatacota.begin()+cota, ldatacota.end()-cota, [](RoboCompLaser::TData a, RoboCompLaser::TData b){ return (a.dist < b.dist); }) ;  //sort laser data from small to $
 		differentialrobot_proxy->getBaseState(state);
@@ -211,10 +214,12 @@ SpecificWorker::State SpecificWorker::checkpoint()
 		return State::CHECKPOINT;
 	}
 	float dist = qposR.norm2();
-	if( ldata[50].dist < dist + ROBOT_RADIUS)
+	qDebug()<< ldatasinord[50].dist<< "<"<< dist;
+	if( ldatasinord[50].dist < dist-ROBOT_SIZE)
 	{
-// 		n = inner->laserTo("world","laser",ldata[50].dist-ROBOT_RADIUS,0);
-		n = inner->transform("laser",qposR.normalize() * (float)(ldata[50].dist - ROBOT_RADIUS*1.9),"world");
+		qDebug()<<"Entro";
+		n = inner->laserTo("world","laser",ldatasinord[50].dist-ROBOT_SIZE,ldatasinord[50].angle);
+// 		n = qposR.normalize() * (float)(ldatasinord[50].dist - ROBOT_RADIUS*1.9);
 		return State::CHECKPOINT;
 	}
 	
@@ -270,12 +275,12 @@ void SpecificWorker::iralpuntomascercano() //Calculo el nodo origen del grafo y 
 bool SpecificWorker::puntodentrocampolaser(int &pos,float angle, int distpoint)
 {
 	pos=-1;
-	float angmin=ldata[0].angle-angle;
+	float angmin=ldatasinord[0].angle-angle;
 	if(fabs(angle)<=M_PI/2)
 	{
-		for(int i=0; i<ldata.size();i++){
-			if(fabs(ldata[i].angle-angle)<angmin){
-				angmin=fabs(ldata[i].angle-angle);
+		for(int i=0; i<(int)ldatasinord.size();i++){
+			if(fabs(ldatasinord[i].angle-angle)<angmin){
+				angmin=fabs(ldatasinord[i].angle-angle);
 				pos=i;
 			}
 		}
@@ -283,7 +288,7 @@ bool SpecificWorker::puntodentrocampolaser(int &pos,float angle, int distpoint)
 	if (pos==-1)
 	  return false;
 	else 
-	  if(ldata[pos].dist<distpoint)
+	  if(ldatasinord[pos].dist<distpoint)
 		  return false;
 	  else 
 		  return true;
