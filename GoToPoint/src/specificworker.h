@@ -56,29 +56,29 @@ private:
 	QMutex m;
 	statego stgo;
 	State st;
-	TargetPose subobjetivo;
-	TargetPose objetivoactual;
-	TargetPose posetag;
+	QVec subobjetivo;
+	QVec objetivoactual;
+	QVec posetag;
 	NavState state;
 	TBaseState Basestate;
 	InnerModel *inner;
 	QGraphicsScene scene;
 	int pos;
 	float muestreolaser;
+	int mldata;
 	RoboCompLaser::TLaserData ldata;
 		
-	void objetivovisible();
+	bool puedopasar(int a,float distobje);
 	void gototarget();
 	statego orientarse();
 	statego hayobtaculo();
 	statego calcularsubobjetivo();
-	statego puedopasar();
-	bool puedopasar2(QVec objerobot);
+	statego puedopasar_orientado();
+	bool puedopasar_singirase(QVec objerobot);
 	void hellegado();
 	statego avanzar();
 	void writeinfo(string _info);
 	void histogram();
-	bool puntocontenido(QVec P1, QVec P2, QVec P);
 };
 
 #endif

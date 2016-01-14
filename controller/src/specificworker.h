@@ -65,6 +65,8 @@ typedef lemon::Path<Graph::Graph> Path;
 #define ROBOT_SIZE 470.f
 #define ROBOT_RADIUS 200.f
 #define FLOOR 2100
+#define nnodos 16
+
 public:
 	SpecificWorker(MapPrx& mprx);	
 	~SpecificWorker();
@@ -78,6 +80,8 @@ public slots:
 // 	void reset();
 private:
 //=====================Variables==================
+	bool a;
+	int ifloor;
 	int id_tag;
 	bool startbutton;	//BOTON DE STARTINICIADO
 	MyQTimer clk;
@@ -106,7 +110,7 @@ private:
 	QVec anterior,n;
 	QVec pick;
 	float muestreolaser;
-
+	int mldata;
 	lemon::Path<lemon::ListGraph> path;
 	
 	
@@ -119,6 +123,7 @@ private:
 	State mapear();
 	State checkpoint();
 	State goto_point();
+	State hellegado();
 	bool esquina();
 	void accionEsquina();
 	void newAprilTag(const tagsList &tags);

@@ -599,3 +599,34 @@ int main(int argc, char** argv)
 #endif
 }
 
+Determining if the Q_WS_X11 exist passed with the following output:
+Change Dir: /home/ivan/robocomp/components/g1/controller/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec857880770/fast"
+make[1]: se ingresa al directorio «/home/ivan/robocomp/components/g1/controller/CMakeFiles/CMakeTmp»
+/usr/bin/make -f CMakeFiles/cmTryCompileExec857880770.dir/build.make CMakeFiles/cmTryCompileExec857880770.dir/build
+make[2]: se ingresa al directorio «/home/ivan/robocomp/components/g1/controller/CMakeFiles/CMakeTmp»
+/usr/bin/cmake -E cmake_progress_report /home/ivan/robocomp/components/g1/controller/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building CXX object CMakeFiles/cmTryCompileExec857880770.dir/CheckSymbolExists.cxx.o
+/usr/bin/c++    -I/usr/include/qt4    -o CMakeFiles/cmTryCompileExec857880770.dir/CheckSymbolExists.cxx.o -c /home/ivan/robocomp/components/g1/controller/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx
+Linking CXX executable cmTryCompileExec857880770
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec857880770.dir/link.txt --verbose=1
+/usr/bin/c++        CMakeFiles/cmTryCompileExec857880770.dir/CheckSymbolExists.cxx.o  -o cmTryCompileExec857880770 -rdynamic 
+make[2]: se sale del directorio «/home/ivan/robocomp/components/g1/controller/CMakeFiles/CMakeTmp»
+make[1]: se sale del directorio «/home/ivan/robocomp/components/g1/controller/CMakeFiles/CMakeTmp»
+
+File /home/ivan/robocomp/components/g1/controller/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx:
+/* */
+#include <QtCore/qglobal.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef Q_WS_X11
+  return ((int*)(&Q_WS_X11))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+

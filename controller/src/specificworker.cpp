@@ -57,8 +57,11 @@ SpecificWorker::SpecificWorker(MapPrx& mprx) : GenericWorker(mprx)
 	pintarRobot( a, a);
 	ldata = laser_proxy->getLaserData();
 	muestreolaser=(ldata[51].angle-ldata[50].angle);
+	mldata=ldata.size()/2;
 	pick=QVec::vec3(0,0,0);
 	circulo=NULL;
+	ifloor=700;
+	a=false;
 // 	initscr();
 // 	keypad(stdscr, 1);
 // 	cbreak();
@@ -80,6 +83,14 @@ void SpecificWorker::compute()
 {
 	try
 	{
+// 		if(ifloor!=FLOOR){
+// 			if(lemon::countNodes<Graph>(Grafo)%nnodos>0)
+// 				a=true;
+// 			else
+// 			{
+// 				if(a) ifloor+=100;
+// 			}
+// 		}
 		ldata = laser_proxy->getLaserData();
 		ldatacota = laser_proxy->getLaserData();
 		ldatasinord = laser_proxy->getLaserData();
@@ -104,40 +115,7 @@ void SpecificWorker::compute()
 				}
 			  break;
 			case State::HELLEGADO:
-					if(s.state=="FINISH"||s.state=="IDLE"){
-						st=State::MAPEAR;
-						cout << s.SubPoints <<endl;
-						
-						char *puntos = new char[s.SubPoints.length() + 1];
-						strcpy(puntos, s.SubPoints.c_str());
-						char * pch;
-						pch = strtok (puntos,"/");
-						QVec Sub=QVec::vec3(0,0,0);
-						while (pch != NULL)
-						{	
-							printf ("%s\n",pch);
-							char *pEnd;
-							Sub(0)=strtof(pch,&pEnd);
-							Sub(2)=strtof(pEnd,NULL);
-							
-							//add new node to the graph
-							lemon::ListGraph::Node newP = Grafo.addNode();
-							map->set(newP, Sub);
-							lemon::ListGraph::Edge newEdge = Grafo.addEdge(robotnode,newP);
-							cost->set( newEdge, (map->operator[](newP) - map->operator[](robotnode)).norm2());
-							
-							pintarRobot(map->operator[](robotnode),map->operator[](newP));
-							robotnode=newP;
-							pch = strtok (NULL, "/");
-							
-							
-						}
-						qDebug() << "Listing the graph";
-						for (lemon::ListGraph::NodeIt n(Grafo); n != lemon::INVALID; ++n)
-							qDebug() << map->operator[](n);
-						qDebug() << "---------------";
-						
-					}
+					st=hellegado();
 			  break;
 			case State::GOTOPOINTS:
 					st=goto_point();
@@ -156,8 +134,6 @@ SpecificWorker::State SpecificWorker::mapear()
 {
   try
   {
-// 		get a random state
-
 		borrarcirculo();
 		qDebug()<<"-a---";
 		if(pick==QVec::vec3(0,0,0))
@@ -168,13 +144,12 @@ SpecificWorker::State SpecificWorker::mapear()
 		}
 			
 
-		n[1] = 0;  //to avoid y
-		pintardestino(n);//azul
+		n[1] = 0;
+		pintardestino(n);
 		writeinfo("Point = ("+to_string(n(0))+","+to_string(n(2))+")");	
 
 		qDebug() << __FUNCTION__ << n;
 		Node nodoDestino;
-// 		obtain the closest point to the graph
 		float dist = std::numeric_limits< float >::max(), d;		
 		for (lemon::ListGraph::NodeIt _n(Grafo); _n != lemon::INVALID; ++_n)
 		{
@@ -187,8 +162,7 @@ SpecificWorker::State SpecificWorker::mapear()
 			}	
 		}
 		qDebug() << __FUNCTION__ << "dist" << d << "node" << map->operator[](nodoDestino);
-		
-// 		Search shortest path along graph from closest node to robot
+		if((map->operator[](nodoDestino)-n).norm2()>800)return State::MAPEAR;
 		if( nodoDestino != robotnode)
 		{
 			dijkstra(nodoDestino);
@@ -214,12 +188,11 @@ SpecificWorker::State SpecificWorker::checkpoint()
 		return State::CHECKPOINT;
 	}
 	float dist = qposR.norm2();
-	qDebug()<< ldatasinord[50].dist<< "<"<< dist;
-	if( ldatasinord[50].dist < dist-ROBOT_SIZE)
+	qDebug()<< ldatasinord[mldata].dist<< "<"<< dist;
+	if( ldatasinord[mldata].dist < dist-ROBOT_SIZE)
 	{
 		qDebug()<<"Entro";
-		n = inner->laserTo("world","laser",ldatasinord[50].dist-ROBOT_SIZE,ldatasinord[50].angle);
-// 		n = qposR.normalize() * (float)(ldatasinord[50].dist - ROBOT_RADIUS*1.9);
+		n = inner->laserTo("world","laser",ldatasinord[mldata].dist-ROBOT_SIZE,ldatasinord[mldata].angle);
 		return State::CHECKPOINT;
 	}
 	
@@ -271,6 +244,49 @@ void SpecificWorker::iralpuntomascercano() //Calculo el nodo origen del grafo y 
 	}
 	else
 		st = State::CHECKPOINT;
+}
+SpecificWorker::State SpecificWorker::hellegado()
+{
+	qDebug() << __FUNCTION__<<"---inicio";
+	NavState s=controller_proxy->getState();
+	cout << s.state<<endl;
+	if(s.state=="FINISH"||s.state=="IDLE"){
+		
+		cout << s.SubPoints <<endl;
+		
+		char *puntos = new char[s.SubPoints.length() + 1];
+		strcpy(puntos, s.SubPoints.c_str());
+		char * pch;
+		pch = strtok (puntos,"/");
+		QVec Sub=QVec::vec3(0,0,0);
+		while (pch != NULL)
+		{	
+			printf ("%s\n",pch);
+			char *pEnd;
+			Sub(0)=strtof(pch,&pEnd);
+			Sub(2)=strtof(pEnd,NULL);
+			
+			//add new node to the graph
+			lemon::ListGraph::Node newP = Grafo.addNode();
+			map->set(newP, Sub);
+			lemon::ListGraph::Edge newEdge = Grafo.addEdge(robotnode,newP);
+			cost->set( newEdge, (map->operator[](newP) - map->operator[](robotnode)).norm2());
+			
+			pintarRobot(map->operator[](robotnode),map->operator[](newP));
+			robotnode=newP;
+			pch = strtok (NULL, "/");
+			
+			
+		}
+		qDebug() << "Listing the graph";
+		for (lemon::ListGraph::NodeIt n(Grafo); n != lemon::INVALID; ++n)
+			qDebug() << map->operator[](n);
+		qDebug() << "---------------";
+		qDebug() << __FUNCTION__<<"---fin";
+		return State::MAPEAR;
+	}
+	qDebug() << __FUNCTION__<<"---fin";
+	return State::HELLEGADO;
 }
 bool SpecificWorker::puntodentrocampolaser(int &pos,float angle, int distpoint)
 {
