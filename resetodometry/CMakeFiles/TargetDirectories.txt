@@ -1,0 +1,1 @@
+/home/ivan/robocomp/components/g1/resetodometry/src/CMakeFiles/resetodometry.dir

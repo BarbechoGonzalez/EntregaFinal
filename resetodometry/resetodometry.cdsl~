@@ -1,0 +1,17 @@
+import "/robocomp/interfaces/IDSLs/DifferentialRobot.idsl";
+import "/robocomp/interfaces/IDSLs/AprilTags.idsl"; 
+
+
+Component resetodometry
+{
+	Communications
+	{
+		requires DifferentialRobot;
+		subscribesTo AprilTags;
+		implements Odometry;
+		publishes Odometry;
+	};
+	language Cpp;
+	gui Qt(QWidget);
+};
+
