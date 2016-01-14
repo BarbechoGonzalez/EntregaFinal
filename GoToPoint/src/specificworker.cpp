@@ -162,56 +162,27 @@ SpecificWorker::statego SpecificWorker::calcularsubobjetivo()
 			break;
 		}
 	}
-	
 	i--;
 	j++;
-	float dist1, dist2=220,alpha;
-	//----i-----
-	dist1=ldata[i].dist;
-	alpha=fabs(asin(dist2/dist1));
-	anglefinal=alpha+ldata[i].angle;
-	disfinal=ldata[i].dist+100;
-	QVec obj_i=inner->laserTo("laser","laser",disfinal,anglefinal);
-	if(!puedopasar(i,disfinal))	i=-1;
-	//----i-----
-	//----j-----
-	dist1=ldata[j].dist;
-	alpha=fabs(asin(dist2/dist1));
-	anglefinal=-alpha+ldata[j].angle;
-	disfinal=ldata[j].dist+100;
-	QVec obj_j=inner->laserTo("laser","laser",disfinal,anglefinal);
-	if(!puedopasar(j,disfinal))	j=-1;
-	//----j-----
-	float aux;
-	QVec obj;
-	if(i==-1&&j==-1)
-	{
-		st=State::BLOCKED;
-		return statego::ORIENTARSE;
+		
+	if(abs(i-mldata)<abs(mldata-j)){
+		float dist1=ldata[i].dist;
+		float dist2=220;
+		float alpha=abs(asin(dist2/dist1));
+		disfinal=ldata[i].dist+200;
+		anglefinal=alpha+abs(ldata[i].angle);
+		anglefinal=anglefinal;
 	}
-	else if(i!=-1&&j!=-1)
+	else 
 	{
-		aux=min(i-mldata,mldata-j);
-		if (aux==abs(i-mldata))
-		{
-		dist1=ldata[i].dist;
-		alpha=fabs(asin(dist2/dist1));
-		anglefinal=alpha+ldata[i].angle;
-		disfinal=ldata[i].dist+100;
-		}
-		else
-		{
-			dist1=ldata[j].dist;
-			alpha=fabs(asin(dist2/dist1));
-			anglefinal=-alpha+ldata[j].angle;
-			disfinal=ldata[j].dist+100;
-		}
-		obj=inner->laserTo("world","laser",disfinal,anglefinal);
+		float dist1=ldata[j].dist;
+		float dist2=220;
+		float alpha=abs(asin(dist2/dist1));
+		disfinal=ldata[j].dist+200;
+		anglefinal=alpha+abs(ldata[j].angle);
+		anglefinal=-anglefinal;
 	}
-	else if(i==-1)	obj=obj_j;
-	else if(j==-1)	obj=obj_i;
-	
-	
+	QVec obj=inner->laserTo("world","laser",disfinal,anglefinal);
 	subobjetivo=obj;
 	objetivoactual=obj;
 	qDebug() << __FUNCTION__<<"---fin";

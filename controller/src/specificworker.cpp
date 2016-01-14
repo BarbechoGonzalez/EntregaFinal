@@ -83,14 +83,14 @@ void SpecificWorker::compute()
 {
 	try
 	{
-// 		if(ifloor!=FLOOR){
-// 			if(lemon::countNodes<Graph>(Grafo)%nnodos>0)
-// 				a=true;
-// 			else
-// 			{
-// 				if(a) ifloor+=100;
-// 			}
-// 		}
+		if(ifloor!=FLOOR){
+			if(lemon::countNodes<Graph>(Grafo)%nnodos>0)
+				a=true;
+			else
+			{
+				if(a) ifloor+=100;
+			}
+		}
 		ldata = laser_proxy->getLaserData();
 		ldatacota = laser_proxy->getLaserData();
 		ldatasinord = laser_proxy->getLaserData();
@@ -137,7 +137,7 @@ SpecificWorker::State SpecificWorker::mapear()
 		borrarcirculo();
 		qDebug()<<"-a---";
 		if(pick==QVec::vec3(0,0,0))
-			this->n = QVec::uniformVector(3, -FLOOR, FLOOR);
+			this->n = QVec::uniformVector(3, -ifloor, ifloor);
 		else{
 			n=pick;
 			pick=QVec::vec3(0,0,0);
@@ -162,7 +162,7 @@ SpecificWorker::State SpecificWorker::mapear()
 			}	
 		}
 		qDebug() << __FUNCTION__ << "dist" << d << "node" << map->operator[](nodoDestino);
-		if((map->operator[](nodoDestino)-n).norm2()>800)return State::MAPEAR;
+		if((map->operator[](nodoDestino)-n).norm2()>700)return State::MAPEAR;
 		if( nodoDestino != robotnode)
 		{
 			dijkstra(nodoDestino);
