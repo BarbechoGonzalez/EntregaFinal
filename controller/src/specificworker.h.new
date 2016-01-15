@@ -1,5 +1,5 @@
 /*
- *    Copyright (C) 2015 by YOUR NAME HERE
+ *    Copyright (C) 2016 by YOUR NAME HERE
  *
  *    This file is part of RoboComp
  *
@@ -43,7 +43,6 @@ public:
 	bool setParams(RoboCompCommonBehavior::ParameterList params);
 
 	void setPick(const Pick &myPick);
-	void newAprilTag(const tagsList &tags);
 
 public slots:
 	void compute(); 	

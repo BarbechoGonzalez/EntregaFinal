@@ -30,7 +30,6 @@ QObject()
 {
 	differentialrobot_proxy = (*(DifferentialRobotPrx*)mprx["DifferentialRobotProxy"]);
 
-	odometry_proxy = (*(OdometryPrx*)mprx["OdometryPub"]);
 
 	mutex = new QMutex(QMutex::Recursive);
 

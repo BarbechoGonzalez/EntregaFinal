@@ -78,12 +78,10 @@
 #include "specificmonitor.h"
 #include "commonbehaviorI.h"
 
-#include <odometryI.h>
 #include <apriltagsI.h>
 
 #include <DifferentialRobot.h>
 #include <AprilTags.h>
-#include <Odometry.h>
 
 
 // User includes here
@@ -94,7 +92,6 @@ using namespace RoboCompCommonBehavior;
 
 using namespace RoboCompDifferentialRobot;
 using namespace RoboCompAprilTags;
-using namespace RoboCompOdometry;
 
 
 
@@ -128,7 +125,6 @@ int ::resetodometry::run(int argc, char* argv[])
 	int status=EXIT_SUCCESS;
 
 	DifferentialRobotPrx differentialrobot_proxy;
-	OdometryPrx odometry_proxy;
 
 	string proxy, tmp;
 	initialize();
@@ -151,29 +147,6 @@ int ::resetodometry::run(int argc, char* argv[])
 	mprx["DifferentialRobotProxy"] = (::IceProxy::Ice::Object*)(&differentialrobot_proxy);//Remote server proxy creation example
 
 	IceStorm::TopicManagerPrx topicManager = IceStorm::TopicManagerPrx::checkedCast(communicator()->propertyToProxy("TopicManager.Proxy"));
-
-	IceStorm::TopicPrx odometry_topic;
-	while (!odometry_topic)
-	{
-		try
-		{
-			odometry_topic = topicManager->retrieve("Odometry");
-		}
-		catch (const IceStorm::NoSuchTopic&)
-		{
-			try
-			{
-				odometry_topic = topicManager->create("Odometry");
-			}
-			catch (const IceStorm::TopicExists&){
-				// Another client created the topic.
-			}
-		}
-	}
-	Ice::ObjectPrx odometry_pub = odometry_topic->getPublisher()->ice_oneway();
-	OdometryPrx odometry = OdometryPrx::uncheckedCast(odometry_pub);
-	mprx["OdometryPub"] = (::IceProxy::Ice::Object*)(&odometry);
-
 
 
 	SpecificWorker *worker = new SpecificWorker(mprx);
@@ -204,18 +177,6 @@ int ::resetodometry::run(int argc, char* argv[])
 		adapterCommonBehavior->activate();
 
 
-
-
-		// Server adapter creation and publication
-		if (not GenericMonitor::configGetString(communicator(), prefix, "Odometry.Endpoints", tmp, ""))
-		{
-			cout << "[" << PROGRAM_NAME << "]: Can't read configuration for proxy Odometry";
-		}
-		Ice::ObjectAdapterPtr adapterOdometry = communicator()->createObjectAdapterWithEndpoints("Odometry", tmp);
-		OdometryI *odometry = new OdometryI(worker);
-		adapterOdometry->add(odometry, communicator()->stringToIdentity("odometry"));
-		adapterOdometry->activate();
-		cout << "[" << PROGRAM_NAME << "]: Odometry adapter created in port " << tmp << endl;
 
 
 

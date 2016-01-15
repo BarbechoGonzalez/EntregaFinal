@@ -23,7 +23,8 @@
 */
 SpecificWorker::SpecificWorker(MapPrx& mprx) : GenericWorker(mprx)
 {
-
+	inner = new InnerModel("/home/ivan/robocomp/files/innermodel/simpleworld.xml");
+	avistado=false;
 }
 
 /**
@@ -47,28 +48,53 @@ bool SpecificWorker::setParams(RoboCompCommonBehavior::ParameterList params)
 
 void SpecificWorker::compute()
 {
-// 	try
-// 	{
-// 		camera_proxy->getYImage(0,img, cState, bState);
-// 		memcpy(image_gray.data, &img[0], m_width*m_height*sizeof(uchar));
-// 		searchTags(image_gray);
-// 	}
-// 	catch(const Ice::Exception &e)
-// 	{
-// 		std::cout << "Error reading from Camera" << e << std::endl;
-// 	}
+	if(avistado)
+	{
+		Resetodometry();
+		avistado=true;
+	}
 }
 
-
-Point SpecificWorker::getOdometry()
+void SpecificWorker::Resetodometry()
 {
+	InnerModelTransform *T= inner->getTransform("rgbd");
+	inner->InnerModel::newTransform("tag", "static", T, tag.tx, tag.ty, tag.tz, tag.rx, tag.ry, tag.rz);
+	
+	RTMat r=inner->getTransformationMatrix("tag","rgbd");
+	
+	QVec v=inner->transform6D("tag","rgbd");
+	
+	T = inner->getTransform(tag.id+"");
+	
+	inner->newTransform("RGBDvirtual", "static",T , v.x(), v.y(), v.z(), v.rx(), v.ry(), v.rz());
+	
+	v=inner->transform6D("rgbd","base");
+	T = inner->getTransform("RGBDvirtual");
+	inner->newTransform("basevirtual", "static",T ,v.x(),v.y(),v.z(),v.rx(),v.ry(),v.rz());
+	
+	v=inner->transform6D("basevirtual","world");
+	
+	inner->updateTransformValues("base",v.x(),v.y(),v.z(),v.rx(),v.ry(),v.rz());
 
+	TBaseState t;
+	t.x=v.x();
+	t.z=v.z();
+	t.alpha=v.ry();
+	differentialrobot_proxy->setOdometer(t);
+	
+	inner->removeNode("basevirtual");
+	inner->removeNode("RGBDvirtual");
+	inner->removeNode("tag");
 }
 
 void SpecificWorker::newAprilTag(const tagsList &tags)
 {
-
+	if(!avistado)
+		for(auto t:tags){
+			tag=t;
+		}
 }
+
 
 
 

@@ -1,5 +1,5 @@
 /*
- *    Copyright (C) 2015 by YOUR NAME HERE
+ *    Copyright (C) 2016 by YOUR NAME HERE
  *
  *    This file is part of RoboComp
  *
@@ -61,11 +61,6 @@ void SpecificWorker::compute()
 
 
 void SpecificWorker::setPick(const Pick &myPick)
-{
-
-}
-
-void SpecificWorker::newAprilTag(const tagsList &tags)
 {
 
 }

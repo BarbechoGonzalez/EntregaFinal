@@ -27,7 +27,6 @@
 #include <ui_mainUI.h>
 
 #include <CommonBehavior.h>
-#include <Odometry.h>
 #include <DifferentialRobot.h>
 #include <AprilTags.h>
 
@@ -40,7 +39,6 @@ typedef map <string,::IceProxy::Ice::Object*> MapPrx;
 
 using namespace std;
 
-using namespace RoboCompOdometry;
 using namespace RoboCompDifferentialRobot;
 using namespace RoboCompAprilTags;
 
@@ -66,9 +64,7 @@ public:
 	
 
 	DifferentialRobotPrx differentialrobot_proxy;
-	OdometryPrx odometry_proxy;
 
-	virtual Point getOdometry() = 0;
 	virtual void newAprilTag(const tagsList &tags) = 0;
 
 

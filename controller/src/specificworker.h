@@ -39,7 +39,6 @@
 #include <qt4/QtGui/qplaintextedit.h>
 #include <qt4/Qt/qdebug.h>
 #include <qt4/Qt/qvarlengtharray.h>
-#include <listamarcas.h>
 #include <lemon/list_graph.h>
 #include <lemon/dijkstra.h>
 #include <qt4/QtCore/QStack>
@@ -100,7 +99,6 @@ private:
 	RoboCompLaser::TLaserData ldata;
 	RoboCompLaser::TLaserData ldatacota;
 	RoboCompLaser::TLaserData ldatasinord;
-	listaMarcas marcas;
 	InnerModel *inner;
 	Graph Grafo;
 	MapQVec *map;
@@ -126,7 +124,6 @@ private:
 	State hellegado();
 	bool esquina();
 	void accionEsquina();
-	void newAprilTag(const tagsList &tags);
 	void setPick(const Pick &myPick);
 	void writeinfo(string _info);
 	void writeinfoTag(string _info);

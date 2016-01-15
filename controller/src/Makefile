@@ -146,30 +146,6 @@ controller/fast:
 	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/build
 .PHONY : controller/fast
 
-AprilTags.o: AprilTags.cpp.o
-.PHONY : AprilTags.o
-
-# target to build an object file
-AprilTags.cpp.o:
-	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/AprilTags.cpp.o
-.PHONY : AprilTags.cpp.o
-
-AprilTags.i: AprilTags.cpp.i
-.PHONY : AprilTags.i
-
-# target to preprocess a source file
-AprilTags.cpp.i:
-	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/AprilTags.cpp.i
-.PHONY : AprilTags.cpp.i
-
-AprilTags.s: AprilTags.cpp.s
-.PHONY : AprilTags.s
-
-# target to generate assembly for a file
-AprilTags.cpp.s:
-	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/AprilTags.cpp.s
-.PHONY : AprilTags.cpp.s
-
 CommonBehavior.o: CommonBehavior.cpp.o
 .PHONY : CommonBehavior.o
 
@@ -289,30 +265,6 @@ RCISMousePicker.s: RCISMousePicker.cpp.s
 RCISMousePicker.cpp.s:
 	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/RCISMousePicker.cpp.s
 .PHONY : RCISMousePicker.cpp.s
-
-apriltagsI.o: apriltagsI.cpp.o
-.PHONY : apriltagsI.o
-
-# target to build an object file
-apriltagsI.cpp.o:
-	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/apriltagsI.cpp.o
-.PHONY : apriltagsI.cpp.o
-
-apriltagsI.i: apriltagsI.cpp.i
-.PHONY : apriltagsI.i
-
-# target to preprocess a source file
-apriltagsI.cpp.i:
-	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/apriltagsI.cpp.i
-.PHONY : apriltagsI.cpp.i
-
-apriltagsI.s: apriltagsI.cpp.s
-.PHONY : apriltagsI.s
-
-# target to generate assembly for a file
-apriltagsI.cpp.s:
-	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/apriltagsI.cpp.s
-.PHONY : apriltagsI.cpp.s
 
 commonbehaviorI.o: commonbehaviorI.cpp.o
 .PHONY : commonbehaviorI.o
@@ -434,30 +386,6 @@ home/ivan/robocomp/classes/rapplication/rapplication.cpp.s:
 	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/home/ivan/robocomp/classes/rapplication/rapplication.cpp.s
 .PHONY : home/ivan/robocomp/classes/rapplication/rapplication.cpp.s
 
-listamarcas.o: listamarcas.cpp.o
-.PHONY : listamarcas.o
-
-# target to build an object file
-listamarcas.cpp.o:
-	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/listamarcas.cpp.o
-.PHONY : listamarcas.cpp.o
-
-listamarcas.i: listamarcas.cpp.i
-.PHONY : listamarcas.i
-
-# target to preprocess a source file
-listamarcas.cpp.i:
-	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/listamarcas.cpp.i
-.PHONY : listamarcas.cpp.i
-
-listamarcas.s: listamarcas.cpp.s
-.PHONY : listamarcas.s
-
-# target to generate assembly for a file
-listamarcas.cpp.s:
-	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/listamarcas.cpp.s
-.PHONY : listamarcas.cpp.s
-
 main.o: main.cpp.o
 .PHONY : main.o
 
@@ -481,54 +409,6 @@ main.s: main.cpp.s
 main.cpp.s:
 	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/main.cpp.s
 .PHONY : main.cpp.s
-
-marca.o: marca.cpp.o
-.PHONY : marca.o
-
-# target to build an object file
-marca.cpp.o:
-	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/marca.cpp.o
-.PHONY : marca.cpp.o
-
-marca.i: marca.cpp.i
-.PHONY : marca.i
-
-# target to preprocess a source file
-marca.cpp.i:
-	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/marca.cpp.i
-.PHONY : marca.cpp.i
-
-marca.s: marca.cpp.s
-.PHONY : marca.s
-
-# target to generate assembly for a file
-marca.cpp.s:
-	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/marca.cpp.s
-.PHONY : marca.cpp.s
-
-moc_apriltagsI.o: moc_apriltagsI.cxx.o
-.PHONY : moc_apriltagsI.o
-
-# target to build an object file
-moc_apriltagsI.cxx.o:
-	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/moc_apriltagsI.cxx.o
-.PHONY : moc_apriltagsI.cxx.o
-
-moc_apriltagsI.i: moc_apriltagsI.cxx.i
-.PHONY : moc_apriltagsI.i
-
-# target to preprocess a source file
-moc_apriltagsI.cxx.i:
-	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/moc_apriltagsI.cxx.i
-.PHONY : moc_apriltagsI.cxx.i
-
-moc_apriltagsI.s: moc_apriltagsI.cxx.s
-.PHONY : moc_apriltagsI.s
-
-# target to generate assembly for a file
-moc_apriltagsI.cxx.s:
-	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/moc_apriltagsI.cxx.s
-.PHONY : moc_apriltagsI.cxx.s
 
 moc_commonbehaviorI.o: moc_commonbehaviorI.cxx.o
 .PHONY : moc_commonbehaviorI.o
@@ -601,54 +481,6 @@ moc_genericworker.s: moc_genericworker.cxx.s
 moc_genericworker.cxx.s:
 	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/moc_genericworker.cxx.s
 .PHONY : moc_genericworker.cxx.s
-
-moc_listamarcas.o: moc_listamarcas.cxx.o
-.PHONY : moc_listamarcas.o
-
-# target to build an object file
-moc_listamarcas.cxx.o:
-	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/moc_listamarcas.cxx.o
-.PHONY : moc_listamarcas.cxx.o
-
-moc_listamarcas.i: moc_listamarcas.cxx.i
-.PHONY : moc_listamarcas.i
-
-# target to preprocess a source file
-moc_listamarcas.cxx.i:
-	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/moc_listamarcas.cxx.i
-.PHONY : moc_listamarcas.cxx.i
-
-moc_listamarcas.s: moc_listamarcas.cxx.s
-.PHONY : moc_listamarcas.s
-
-# target to generate assembly for a file
-moc_listamarcas.cxx.s:
-	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/moc_listamarcas.cxx.s
-.PHONY : moc_listamarcas.cxx.s
-
-moc_marca.o: moc_marca.cxx.o
-.PHONY : moc_marca.o
-
-# target to build an object file
-moc_marca.cxx.o:
-	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/moc_marca.cxx.o
-.PHONY : moc_marca.cxx.o
-
-moc_marca.i: moc_marca.cxx.i
-.PHONY : moc_marca.i
-
-# target to preprocess a source file
-moc_marca.cxx.i:
-	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/moc_marca.cxx.i
-.PHONY : moc_marca.cxx.i
-
-moc_marca.s: moc_marca.cxx.s
-.PHONY : moc_marca.s
-
-# target to generate assembly for a file
-moc_marca.cxx.s:
-	cd /home/ivan/robocomp/components/g1/controller && $(MAKE) -f src/CMakeFiles/controller.dir/build.make src/CMakeFiles/controller.dir/moc_marca.cxx.s
-.PHONY : moc_marca.cxx.s
 
 moc_myqtimer.o: moc_myqtimer.cxx.o
 .PHONY : moc_myqtimer.o
@@ -854,9 +686,6 @@ help:
 	@echo "... list_install_components"
 	@echo "... controller"
 	@echo "... install/local"
-	@echo "... AprilTags.o"
-	@echo "... AprilTags.i"
-	@echo "... AprilTags.s"
 	@echo "... CommonBehavior.o"
 	@echo "... CommonBehavior.i"
 	@echo "... CommonBehavior.s"
@@ -872,9 +701,6 @@ help:
 	@echo "... RCISMousePicker.o"
 	@echo "... RCISMousePicker.i"
 	@echo "... RCISMousePicker.s"
-	@echo "... apriltagsI.o"
-	@echo "... apriltagsI.i"
-	@echo "... apriltagsI.s"
 	@echo "... commonbehaviorI.o"
 	@echo "... commonbehaviorI.i"
 	@echo "... commonbehaviorI.s"
@@ -890,18 +716,9 @@ help:
 	@echo "... home/ivan/robocomp/classes/rapplication/rapplication.o"
 	@echo "... home/ivan/robocomp/classes/rapplication/rapplication.i"
 	@echo "... home/ivan/robocomp/classes/rapplication/rapplication.s"
-	@echo "... listamarcas.o"
-	@echo "... listamarcas.i"
-	@echo "... listamarcas.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
-	@echo "... marca.o"
-	@echo "... marca.i"
-	@echo "... marca.s"
-	@echo "... moc_apriltagsI.o"
-	@echo "... moc_apriltagsI.i"
-	@echo "... moc_apriltagsI.s"
 	@echo "... moc_commonbehaviorI.o"
 	@echo "... moc_commonbehaviorI.i"
 	@echo "... moc_commonbehaviorI.s"
@@ -911,12 +728,6 @@ help:
 	@echo "... moc_genericworker.o"
 	@echo "... moc_genericworker.i"
 	@echo "... moc_genericworker.s"
-	@echo "... moc_listamarcas.o"
-	@echo "... moc_listamarcas.i"
-	@echo "... moc_listamarcas.s"
-	@echo "... moc_marca.o"
-	@echo "... moc_marca.i"
-	@echo "... moc_marca.s"
 	@echo "... moc_myqtimer.o"
 	@echo "... moc_myqtimer.i"
 	@echo "... moc_myqtimer.s"

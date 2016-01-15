@@ -1,5 +1,5 @@
 /*
- *    Copyright (C) 2015 by YOUR NAME HERE
+ *    Copyright (C) 2016 by YOUR NAME HERE
  *
  *    This file is part of RoboComp
  *
@@ -31,7 +31,6 @@
 #include <Controller.h>
 #include <RCISMousePicker.h>
 #include <DifferentialRobot.h>
-#include <AprilTags.h>
 
 
 
@@ -46,7 +45,6 @@ using namespace RoboCompLaser;
 using namespace RoboCompController;
 using namespace RoboCompRCISMousePicker;
 using namespace RoboCompDifferentialRobot;
-using namespace RoboCompAprilTags;
 
 
 
@@ -74,7 +72,6 @@ public:
 	LaserPrx laser_proxy;
 
 	virtual void setPick(const Pick &myPick) = 0;
-	virtual void newAprilTag(const tagsList &tags) = 0;
 
 
 protected:

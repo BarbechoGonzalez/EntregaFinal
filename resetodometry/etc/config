@@ -1,10 +1,6 @@
 CommonBehavior.Endpoints=tcp -p 1
 
 
-# Endpoints for implemented interfaces
-Odometry.Endpoints=tcp -p 0
-
-
 # Endpoints for subscriptions
 AprilTagsTopic.Endpoints=tcp -p 0
 

@@ -364,12 +364,6 @@ void SpecificWorker::accionEsquina()
 	usleep(1000000);
 	differentialrobot_proxy->setSpeedBase(0, 0);
 }
-void SpecificWorker::newAprilTag(const tagsList &tags)
-{
-	for (auto t :tags){
-	      marcas.add(t,state);
-	}
-}
 void SpecificWorker::setPick(const Pick& myPick)
 {
 	pick(0) = myPick.x;

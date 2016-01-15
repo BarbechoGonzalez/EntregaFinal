@@ -228,30 +228,6 @@ DifferentialRobot.cpp.s:
 	cd /home/ivan/robocomp/components/g1/resetodometry && $(MAKE) -f src/CMakeFiles/resetodometry.dir/build.make src/CMakeFiles/resetodometry.dir/DifferentialRobot.cpp.s
 .PHONY : DifferentialRobot.cpp.s
 
-Odometry.o: Odometry.cpp.o
-.PHONY : Odometry.o
-
-# target to build an object file
-Odometry.cpp.o:
-	cd /home/ivan/robocomp/components/g1/resetodometry && $(MAKE) -f src/CMakeFiles/resetodometry.dir/build.make src/CMakeFiles/resetodometry.dir/Odometry.cpp.o
-.PHONY : Odometry.cpp.o
-
-Odometry.i: Odometry.cpp.i
-.PHONY : Odometry.i
-
-# target to preprocess a source file
-Odometry.cpp.i:
-	cd /home/ivan/robocomp/components/g1/resetodometry && $(MAKE) -f src/CMakeFiles/resetodometry.dir/build.make src/CMakeFiles/resetodometry.dir/Odometry.cpp.i
-.PHONY : Odometry.cpp.i
-
-Odometry.s: Odometry.cpp.s
-.PHONY : Odometry.s
-
-# target to generate assembly for a file
-Odometry.cpp.s:
-	cd /home/ivan/robocomp/components/g1/resetodometry && $(MAKE) -f src/CMakeFiles/resetodometry.dir/build.make src/CMakeFiles/resetodometry.dir/Odometry.cpp.s
-.PHONY : Odometry.cpp.s
-
 apriltagsI.o: apriltagsI.cpp.o
 .PHONY : apriltagsI.o
 
@@ -347,54 +323,6 @@ genericworker.s: genericworker.cpp.s
 genericworker.cpp.s:
 	cd /home/ivan/robocomp/components/g1/resetodometry && $(MAKE) -f src/CMakeFiles/resetodometry.dir/build.make src/CMakeFiles/resetodometry.dir/genericworker.cpp.s
 .PHONY : genericworker.cpp.s
-
-home/ivan/robocomp/classes/qlog/qlog.o: home/ivan/robocomp/classes/qlog/qlog.cpp.o
-.PHONY : home/ivan/robocomp/classes/qlog/qlog.o
-
-# target to build an object file
-home/ivan/robocomp/classes/qlog/qlog.cpp.o:
-	cd /home/ivan/robocomp/components/g1/resetodometry && $(MAKE) -f src/CMakeFiles/resetodometry.dir/build.make src/CMakeFiles/resetodometry.dir/home/ivan/robocomp/classes/qlog/qlog.cpp.o
-.PHONY : home/ivan/robocomp/classes/qlog/qlog.cpp.o
-
-home/ivan/robocomp/classes/qlog/qlog.i: home/ivan/robocomp/classes/qlog/qlog.cpp.i
-.PHONY : home/ivan/robocomp/classes/qlog/qlog.i
-
-# target to preprocess a source file
-home/ivan/robocomp/classes/qlog/qlog.cpp.i:
-	cd /home/ivan/robocomp/components/g1/resetodometry && $(MAKE) -f src/CMakeFiles/resetodometry.dir/build.make src/CMakeFiles/resetodometry.dir/home/ivan/robocomp/classes/qlog/qlog.cpp.i
-.PHONY : home/ivan/robocomp/classes/qlog/qlog.cpp.i
-
-home/ivan/robocomp/classes/qlog/qlog.s: home/ivan/robocomp/classes/qlog/qlog.cpp.s
-.PHONY : home/ivan/robocomp/classes/qlog/qlog.s
-
-# target to generate assembly for a file
-home/ivan/robocomp/classes/qlog/qlog.cpp.s:
-	cd /home/ivan/robocomp/components/g1/resetodometry && $(MAKE) -f src/CMakeFiles/resetodometry.dir/build.make src/CMakeFiles/resetodometry.dir/home/ivan/robocomp/classes/qlog/qlog.cpp.s
-.PHONY : home/ivan/robocomp/classes/qlog/qlog.cpp.s
-
-home/ivan/robocomp/classes/rapplication/rapplication.o: home/ivan/robocomp/classes/rapplication/rapplication.cpp.o
-.PHONY : home/ivan/robocomp/classes/rapplication/rapplication.o
-
-# target to build an object file
-home/ivan/robocomp/classes/rapplication/rapplication.cpp.o:
-	cd /home/ivan/robocomp/components/g1/resetodometry && $(MAKE) -f src/CMakeFiles/resetodometry.dir/build.make src/CMakeFiles/resetodometry.dir/home/ivan/robocomp/classes/rapplication/rapplication.cpp.o
-.PHONY : home/ivan/robocomp/classes/rapplication/rapplication.cpp.o
-
-home/ivan/robocomp/classes/rapplication/rapplication.i: home/ivan/robocomp/classes/rapplication/rapplication.cpp.i
-.PHONY : home/ivan/robocomp/classes/rapplication/rapplication.i
-
-# target to preprocess a source file
-home/ivan/robocomp/classes/rapplication/rapplication.cpp.i:
-	cd /home/ivan/robocomp/components/g1/resetodometry && $(MAKE) -f src/CMakeFiles/resetodometry.dir/build.make src/CMakeFiles/resetodometry.dir/home/ivan/robocomp/classes/rapplication/rapplication.cpp.i
-.PHONY : home/ivan/robocomp/classes/rapplication/rapplication.cpp.i
-
-home/ivan/robocomp/classes/rapplication/rapplication.s: home/ivan/robocomp/classes/rapplication/rapplication.cpp.s
-.PHONY : home/ivan/robocomp/classes/rapplication/rapplication.s
-
-# target to generate assembly for a file
-home/ivan/robocomp/classes/rapplication/rapplication.cpp.s:
-	cd /home/ivan/robocomp/components/g1/resetodometry && $(MAKE) -f src/CMakeFiles/resetodometry.dir/build.make src/CMakeFiles/resetodometry.dir/home/ivan/robocomp/classes/rapplication/rapplication.cpp.s
-.PHONY : home/ivan/robocomp/classes/rapplication/rapplication.cpp.s
 
 main.o: main.cpp.o
 .PHONY : main.o
@@ -516,30 +444,6 @@ moc_genericworker.cxx.s:
 	cd /home/ivan/robocomp/components/g1/resetodometry && $(MAKE) -f src/CMakeFiles/resetodometry.dir/build.make src/CMakeFiles/resetodometry.dir/moc_genericworker.cxx.s
 .PHONY : moc_genericworker.cxx.s
 
-moc_odometryI.o: moc_odometryI.cxx.o
-.PHONY : moc_odometryI.o
-
-# target to build an object file
-moc_odometryI.cxx.o:
-	cd /home/ivan/robocomp/components/g1/resetodometry && $(MAKE) -f src/CMakeFiles/resetodometry.dir/build.make src/CMakeFiles/resetodometry.dir/moc_odometryI.cxx.o
-.PHONY : moc_odometryI.cxx.o
-
-moc_odometryI.i: moc_odometryI.cxx.i
-.PHONY : moc_odometryI.i
-
-# target to preprocess a source file
-moc_odometryI.cxx.i:
-	cd /home/ivan/robocomp/components/g1/resetodometry && $(MAKE) -f src/CMakeFiles/resetodometry.dir/build.make src/CMakeFiles/resetodometry.dir/moc_odometryI.cxx.i
-.PHONY : moc_odometryI.cxx.i
-
-moc_odometryI.s: moc_odometryI.cxx.s
-.PHONY : moc_odometryI.s
-
-# target to generate assembly for a file
-moc_odometryI.cxx.s:
-	cd /home/ivan/robocomp/components/g1/resetodometry && $(MAKE) -f src/CMakeFiles/resetodometry.dir/build.make src/CMakeFiles/resetodometry.dir/moc_odometryI.cxx.s
-.PHONY : moc_odometryI.cxx.s
-
 moc_specificmonitor.o: moc_specificmonitor.cxx.o
 .PHONY : moc_specificmonitor.o
 
@@ -588,29 +492,53 @@ moc_specificworker.cxx.s:
 	cd /home/ivan/robocomp/components/g1/resetodometry && $(MAKE) -f src/CMakeFiles/resetodometry.dir/build.make src/CMakeFiles/resetodometry.dir/moc_specificworker.cxx.s
 .PHONY : moc_specificworker.cxx.s
 
-odometryI.o: odometryI.cpp.o
-.PHONY : odometryI.o
+opt/robocomp/classes/qlog/qlog.o: opt/robocomp/classes/qlog/qlog.cpp.o
+.PHONY : opt/robocomp/classes/qlog/qlog.o
 
 # target to build an object file
-odometryI.cpp.o:
-	cd /home/ivan/robocomp/components/g1/resetodometry && $(MAKE) -f src/CMakeFiles/resetodometry.dir/build.make src/CMakeFiles/resetodometry.dir/odometryI.cpp.o
-.PHONY : odometryI.cpp.o
+opt/robocomp/classes/qlog/qlog.cpp.o:
+	cd /home/ivan/robocomp/components/g1/resetodometry && $(MAKE) -f src/CMakeFiles/resetodometry.dir/build.make src/CMakeFiles/resetodometry.dir/opt/robocomp/classes/qlog/qlog.cpp.o
+.PHONY : opt/robocomp/classes/qlog/qlog.cpp.o
 
-odometryI.i: odometryI.cpp.i
-.PHONY : odometryI.i
+opt/robocomp/classes/qlog/qlog.i: opt/robocomp/classes/qlog/qlog.cpp.i
+.PHONY : opt/robocomp/classes/qlog/qlog.i
 
 # target to preprocess a source file
-odometryI.cpp.i:
-	cd /home/ivan/robocomp/components/g1/resetodometry && $(MAKE) -f src/CMakeFiles/resetodometry.dir/build.make src/CMakeFiles/resetodometry.dir/odometryI.cpp.i
-.PHONY : odometryI.cpp.i
+opt/robocomp/classes/qlog/qlog.cpp.i:
+	cd /home/ivan/robocomp/components/g1/resetodometry && $(MAKE) -f src/CMakeFiles/resetodometry.dir/build.make src/CMakeFiles/resetodometry.dir/opt/robocomp/classes/qlog/qlog.cpp.i
+.PHONY : opt/robocomp/classes/qlog/qlog.cpp.i
 
-odometryI.s: odometryI.cpp.s
-.PHONY : odometryI.s
+opt/robocomp/classes/qlog/qlog.s: opt/robocomp/classes/qlog/qlog.cpp.s
+.PHONY : opt/robocomp/classes/qlog/qlog.s
 
 # target to generate assembly for a file
-odometryI.cpp.s:
-	cd /home/ivan/robocomp/components/g1/resetodometry && $(MAKE) -f src/CMakeFiles/resetodometry.dir/build.make src/CMakeFiles/resetodometry.dir/odometryI.cpp.s
-.PHONY : odometryI.cpp.s
+opt/robocomp/classes/qlog/qlog.cpp.s:
+	cd /home/ivan/robocomp/components/g1/resetodometry && $(MAKE) -f src/CMakeFiles/resetodometry.dir/build.make src/CMakeFiles/resetodometry.dir/opt/robocomp/classes/qlog/qlog.cpp.s
+.PHONY : opt/robocomp/classes/qlog/qlog.cpp.s
+
+opt/robocomp/classes/rapplication/rapplication.o: opt/robocomp/classes/rapplication/rapplication.cpp.o
+.PHONY : opt/robocomp/classes/rapplication/rapplication.o
+
+# target to build an object file
+opt/robocomp/classes/rapplication/rapplication.cpp.o:
+	cd /home/ivan/robocomp/components/g1/resetodometry && $(MAKE) -f src/CMakeFiles/resetodometry.dir/build.make src/CMakeFiles/resetodometry.dir/opt/robocomp/classes/rapplication/rapplication.cpp.o
+.PHONY : opt/robocomp/classes/rapplication/rapplication.cpp.o
+
+opt/robocomp/classes/rapplication/rapplication.i: opt/robocomp/classes/rapplication/rapplication.cpp.i
+.PHONY : opt/robocomp/classes/rapplication/rapplication.i
+
+# target to preprocess a source file
+opt/robocomp/classes/rapplication/rapplication.cpp.i:
+	cd /home/ivan/robocomp/components/g1/resetodometry && $(MAKE) -f src/CMakeFiles/resetodometry.dir/build.make src/CMakeFiles/resetodometry.dir/opt/robocomp/classes/rapplication/rapplication.cpp.i
+.PHONY : opt/robocomp/classes/rapplication/rapplication.cpp.i
+
+opt/robocomp/classes/rapplication/rapplication.s: opt/robocomp/classes/rapplication/rapplication.cpp.s
+.PHONY : opt/robocomp/classes/rapplication/rapplication.s
+
+# target to generate assembly for a file
+opt/robocomp/classes/rapplication/rapplication.cpp.s:
+	cd /home/ivan/robocomp/components/g1/resetodometry && $(MAKE) -f src/CMakeFiles/resetodometry.dir/build.make src/CMakeFiles/resetodometry.dir/opt/robocomp/classes/rapplication/rapplication.cpp.s
+.PHONY : opt/robocomp/classes/rapplication/rapplication.cpp.s
 
 specificmonitor.o: specificmonitor.cpp.o
 .PHONY : specificmonitor.o
@@ -682,9 +610,6 @@ help:
 	@echo "... DifferentialRobot.o"
 	@echo "... DifferentialRobot.i"
 	@echo "... DifferentialRobot.s"
-	@echo "... Odometry.o"
-	@echo "... Odometry.i"
-	@echo "... Odometry.s"
 	@echo "... apriltagsI.o"
 	@echo "... apriltagsI.i"
 	@echo "... apriltagsI.s"
@@ -697,12 +622,6 @@ help:
 	@echo "... genericworker.o"
 	@echo "... genericworker.i"
 	@echo "... genericworker.s"
-	@echo "... home/ivan/robocomp/classes/qlog/qlog.o"
-	@echo "... home/ivan/robocomp/classes/qlog/qlog.i"
-	@echo "... home/ivan/robocomp/classes/qlog/qlog.s"
-	@echo "... home/ivan/robocomp/classes/rapplication/rapplication.o"
-	@echo "... home/ivan/robocomp/classes/rapplication/rapplication.i"
-	@echo "... home/ivan/robocomp/classes/rapplication/rapplication.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
@@ -718,18 +637,18 @@ help:
 	@echo "... moc_genericworker.o"
 	@echo "... moc_genericworker.i"
 	@echo "... moc_genericworker.s"
-	@echo "... moc_odometryI.o"
-	@echo "... moc_odometryI.i"
-	@echo "... moc_odometryI.s"
 	@echo "... moc_specificmonitor.o"
 	@echo "... moc_specificmonitor.i"
 	@echo "... moc_specificmonitor.s"
 	@echo "... moc_specificworker.o"
 	@echo "... moc_specificworker.i"
 	@echo "... moc_specificworker.s"
-	@echo "... odometryI.o"
-	@echo "... odometryI.i"
-	@echo "... odometryI.s"
+	@echo "... opt/robocomp/classes/qlog/qlog.o"
+	@echo "... opt/robocomp/classes/qlog/qlog.i"
+	@echo "... opt/robocomp/classes/qlog/qlog.s"
+	@echo "... opt/robocomp/classes/rapplication/rapplication.o"
+	@echo "... opt/robocomp/classes/rapplication/rapplication.i"
+	@echo "... opt/robocomp/classes/rapplication/rapplication.s"
 	@echo "... specificmonitor.o"
 	@echo "... specificmonitor.i"
 	@echo "... specificmonitor.s"

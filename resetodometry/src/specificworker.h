@@ -37,19 +37,24 @@
 class SpecificWorker : public GenericWorker
 {
 Q_OBJECT
+typedef RoboCompAprilTags::tag Apriltag;
+typedef RoboCompDifferentialRobot::TBaseState TBaseState;
 public:
 	SpecificWorker(MapPrx& mprx);	
 	~SpecificWorker();
 	bool setParams(RoboCompCommonBehavior::ParameterList params);
 
-	Point getOdometry();
 	void newAprilTag(const tagsList &tags);
 
 public slots:
 	void compute(); 	
 
 private:
+	InnerModel *inner;
+	Apriltag tag;
+	bool avistado;
 	
+	void Resetodometry();
 };
 
 #endif

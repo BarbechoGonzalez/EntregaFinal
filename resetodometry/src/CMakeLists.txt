@@ -26,7 +26,6 @@ SET ( SOURCES
   commonbehaviorI.cpp
   genericworker.cpp
   specificworker.cpp
-  odometryI.cpp
   apriltagsI.cpp
 )
 
@@ -38,7 +37,6 @@ SET ( HEADERS
   commonbehaviorI.h
   genericworker.h
   specificworker.h
-  odometryI.h
   apriltagsI.h
 )
 
@@ -46,7 +44,7 @@ SET ( HEADERS
 
 #ROBOCOMP
 ROBOCOMP_INITIALIZE( $ENV{ROBOCOMP}/ )
-ROBOCOMP_WRAP_ICE( CommonBehavior DifferentialRobot AprilTags Odometry )
+ROBOCOMP_WRAP_ICE( CommonBehavior DifferentialRobot AprilTags )
 SET (EXECUTABLE_OUTPUT_PATH ${RC_COMPONENT_DEVEL_PATH}/bin)
 
 # Qt4
