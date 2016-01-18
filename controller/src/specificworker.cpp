@@ -45,8 +45,8 @@ SpecificWorker::SpecificWorker(MapPrx& mprx) : GenericWorker(mprx)
 	threshold = 400;
 	velmax=270;	//velocidad maxima del robot
 	velmaxg=1.5;
-	inner = new InnerModel("/home/ivan/robocomp/files/innermodel/simpleworld.xml");
-// 	inner = new InnerModel("/home/ivan/robocomp/files/innermodel/RoCKIn@home/world/apartment.xml");
+	inner = new InnerModel("/home/ivan/robocomp/files/innermodel/RoCKIn@home/world/apartment.xml");
+// 	inner = new InnerModel("/home/ivan/robocomp/files/innermodel/simpleworld.xml");
 	map = new MapQVec(Grafo);
 	cost = new LengthMap(Grafo);
 	
@@ -54,18 +54,12 @@ SpecificWorker::SpecificWorker(MapPrx& mprx) : GenericWorker(mprx)
 	QVec a=QVec::vec3(state.x,0,state.z);
 	robotnode = Grafo.addNode();
 	(*map)[robotnode]=a;
-	pintarRobot( a, a);
+	pintarnodo( a, a);
 	ldata = laser_proxy->getLaserData();
 	muestreolaser=(ldata[51].angle-ldata[50].angle);
 	mldata=ldata.size()/2;
 	pick=QVec::vec3(0,0,0);
 	circulo=NULL;
-	ifloor=700;
-	a=false;
-// 	initscr();
-// 	keypad(stdscr, 1);
-// 	cbreak();
-// 	differentialrobot_proxy->setOdometerPose(0,0,state.alpha);
 }
 
 /**
@@ -83,21 +77,22 @@ void SpecificWorker::compute()
 {
 	try
 	{
-		if(ifloor!=FLOOR){
-			if(lemon::countNodes<Graph>(Grafo)%nnodos>0)
-				a=true;
-			else
-			{
-				if(a) ifloor+=100;
-			}
-		}
+// 		if(ifloor!=FLOOR){
+// 			if(lemon::countNodes<Graph>(Grafo)%nnodos>0)
+// 				a=true;
+// 			else
+// 			{
+// 				if(a) ifloor+=100;
+// 			}
+// 		}
+		pintarrobot();
 		ldata = laser_proxy->getLaserData();
 		ldatacota = laser_proxy->getLaserData();
 		ldatasinord = laser_proxy->getLaserData();
 		std::sort( ldata.begin(), ldata.end(), [](RoboCompLaser::TData a, RoboCompLaser::TData b){ return (a.dist < b.dist); }) ;  //sort laser data from small to $
 		std::sort( ldatacota.begin()+cota, ldatacota.end()-cota, [](RoboCompLaser::TData a, RoboCompLaser::TData b){ return (a.dist < b.dist); }) ;  //sort laser data from small to $
 		differentialrobot_proxy->getBaseState(state);
-		inner->updateTransformValues("base",state.x,0,state.z,0,state.alpha,0);
+		inner->updateTransformValues("robot",state.x,0,state.z,0,state.alpha,0);
 		NavState s=controller_proxy->getState();
 		pintarposerobot();
 		switch(st)
@@ -135,9 +130,11 @@ SpecificWorker::State SpecificWorker::mapear()
   try
   {
 		borrarcirculo();
-		qDebug()<<"-a---";
-		if(pick==QVec::vec3(0,0,0))
-			this->n = QVec::uniformVector(3, -ifloor, ifloor);
+		if(pick==QVec::vec3(0,0,0)){
+			this->n = QVec::zeros(3);
+			this->n[0] = QVec::uniformVector(1, xmin->text().toInt(), xmax->text().toInt())[0];
+			this->n[2] = QVec::uniformVector(1, ymin->text().toInt(), ymax->text().toInt())[0];
+		}
 		else{
 			n=pick;
 			pick=QVec::vec3(0,0,0);
@@ -162,7 +159,7 @@ SpecificWorker::State SpecificWorker::mapear()
 			}	
 		}
 		qDebug() << __FUNCTION__ << "dist" << d << "node" << map->operator[](nodoDestino);
-		if((map->operator[](nodoDestino)-n).norm2()>700)return State::MAPEAR;
+// 		if((map->operator[](nodoDestino)-n).norm2()>700)return State::MAPEAR;
 		if( nodoDestino != robotnode)
 		{
 			dijkstra(nodoDestino);
@@ -182,11 +179,27 @@ SpecificWorker::State SpecificWorker::checkpoint()
 	qDebug() << __FUNCTION__<<"---inicio";
 	QVec qposR = inner->transform("laser",n,"world");
 	float alfa = atan2(qposR.x(), qposR.z());
-	if(fabs(alfa)>fabs(muestreolaser*2))
-	{
-		girar(alfa);
-		return State::CHECKPOINT;
+// 	if(fabs(alfa)>muestreolaser)
+// 	{
+// 		girar(alfa);
+// 		return State::CHECKPOINT;
+// 	}
+	if(fabs(alfa)>muestreolaser){
+		differentialrobot_proxy->setSpeedBase(0,alfa*2);
+		usleep(500000);
+		differentialrobot_proxy->setSpeedBase(0,0);
 	}
+// 	if( fabs(alfa) > 0.5)	//If target qposR not in front of the robot, turn around
+// 	{
+// 		try	{	differentialrobot_proxy->setSpeedBase(0, 0.4*alfa);	}
+// 		catch(Ice::Exception &ex) {std::cout<<ex.what()<<std::endl;};	
+// 		return State::CHECKPOINT;
+// 	}
+// 	else 
+// 	{
+// 		try	{	differentialrobot_proxy->setSpeedBase(0,0);	}
+// 		catch(Ice::Exception &ex) {std::cout<<ex.what()<<std::endl;};	
+// 	}
 	float dist = qposR.norm2();
 	qDebug()<< ldatasinord[mldata].dist<< "<"<< dist;
 	if( ldatasinord[mldata].dist < dist-ROBOT_SIZE)
@@ -272,7 +285,7 @@ SpecificWorker::State SpecificWorker::hellegado()
 			lemon::ListGraph::Edge newEdge = Grafo.addEdge(robotnode,newP);
 			cost->set( newEdge, (map->operator[](newP) - map->operator[](robotnode)).norm2());
 			
-			pintarRobot(map->operator[](robotnode),map->operator[](newP));
+			pintarnodo(map->operator[](robotnode),map->operator[](newP));
 			robotnode=newP;
 			pch = strtok (NULL, "/");
 			
@@ -401,19 +414,26 @@ void SpecificWorker::iniciar()
 }
 void SpecificWorker::parar()
 {
+	try{
 	startbutton=false;
 	st=State::INIT;
 	while (!pila.isEmpty())
 		pila.pop();
 	borrarcirculo();
 	differentialrobot_proxy->setSpeedBase(0, 0);
+	controller_proxy->stop();
+	}
+	catch(const Ice::Exception &ex)
+	{
+		  std::cout << ex << std::endl;
+	}	
 }
 void SpecificWorker::writeinfo(string _info)
 {
 	QString *text=new QString(_info.c_str());
 	InfoText->append(*text);
 } 
-void SpecificWorker::pintarRobot(QVec origen, QVec destino)
+void SpecificWorker::pintarnodo(QVec origen, QVec destino)
 {
 	scene->addLine(origen(0)/10, -origen(2)/10, destino(0)/10, -destino(2)/10, QPen(Qt::black));
 	scene->addEllipse(destino(0)/10-5, -destino(2)/10-5, 10, 10, QPen(Qt::white), QBrush(Qt::black));
@@ -438,4 +458,16 @@ void SpecificWorker::borrarcirculo()
 		scene->removeItem(circulo);
 		circulo=NULL;
 	}
+}
+void SpecificWorker::pintarrobot()
+{
+	static QGraphicsEllipseItem *robot;
+	differentialrobot_proxy->getBaseState(state);
+	if(robot!=NULL){
+		scene->removeItem(robot);
+		robot=NULL;
+	}
+	QVec r=map->operator[](robotnode);
+	robot = scene->addEllipse(state.x/10-5, -state.z/10-5, 15, 15, QPen(Qt::white), QBrush(Qt::cyan));
+
 }

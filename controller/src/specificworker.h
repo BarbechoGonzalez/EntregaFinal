@@ -63,7 +63,6 @@ typedef lemon::Path<Graph::Graph> Path;
 
 #define ROBOT_SIZE 470.f
 #define ROBOT_RADIUS 200.f
-#define FLOOR 2100
 #define nnodos 16
 
 public:
@@ -79,8 +78,6 @@ public slots:
 // 	void reset();
 private:
 //=====================Variables==================
-	bool a;
-	int ifloor;
 	int id_tag;
 	bool startbutton;	//BOTON DE STARTINICIADO
 	MyQTimer clk;
@@ -127,12 +124,13 @@ private:
 	void setPick(const Pick &myPick);
 	void writeinfo(string _info);
 	void writeinfoTag(string _info);
-	void pintarRobot(QVec origen, QVec destino);
+	void pintarnodo(QVec origen, QVec destino);
 	void pintardestino(QVec destino);
 	bool puntodentrocampolaser(int &pos,float angle, int distpoint);
 	void girar(float angle);
 	void borrarcirculo();
 	void pintarposerobot();
+	void pintarrobot();
 };
 #endif
 

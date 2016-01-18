@@ -23,7 +23,7 @@
 */
 SpecificWorker::SpecificWorker(MapPrx& mprx) : GenericWorker(mprx)
 {
-	inner = new InnerModel("/home/ivan/robocomp/files/innermodel/simpleworld.xml");
+	inner = new InnerModel("/home/ivan/robocomp/files/innermodel/RoCKIn@home/world/apartment.xml");
 	avistado=false;
 }
 
@@ -68,13 +68,13 @@ void SpecificWorker::Resetodometry()
 	
 	inner->newTransform("RGBDvirtual", "static",T , v.x(), v.y(), v.z(), v.rx(), v.ry(), v.rz());
 	
-	v=inner->transform6D("rgbd","base");
+	v=inner->transform6D("rgbd","robot");
 	T = inner->getTransform("RGBDvirtual");
 	inner->newTransform("basevirtual", "static",T ,v.x(),v.y(),v.z(),v.rx(),v.ry(),v.rz());
 	
 	v=inner->transform6D("basevirtual","world");
 	
-	inner->updateTransformValues("base",v.x(),v.y(),v.z(),v.rx(),v.ry(),v.rz());
+	inner->updateTransformValues("robot",v.x(),v.y(),v.z(),v.rx(),v.ry(),v.rz());
 
 	TBaseState t;
 	t.x=v.x();

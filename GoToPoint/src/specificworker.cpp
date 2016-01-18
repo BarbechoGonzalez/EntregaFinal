@@ -27,7 +27,8 @@ SpecificWorker::SpecificWorker(MapPrx& mprx) : GenericWorker(mprx)
 	state.state="IDLE";
 	st=State::IDLE;
 	stgo=statego::ORIENTARSE;
-	inner = new InnerModel("/home/ivan/robocomp/files/innermodel/simpleworld.xml");
+	inner = new InnerModel("/home/ivan/robocomp/files/innermodel/RoCKIn@home/world/apartment.xml");
+// 	inner = new InnerModel("/home/ivan/robocomp/files/innermodel/simpleworld.xml");
 	ldata=laser_proxy->getLaserData();
 	muestreolaser=(ldata[51].angle-ldata[50].angle);
 	mldata=ldata.size()/2;
@@ -35,11 +36,7 @@ SpecificWorker::SpecificWorker(MapPrx& mprx) : GenericWorker(mprx)
 	graphicsView->show();
 	graphicsView->scale(3,3);
 	state.SubPoints="";
-// 	subobjetivo;
-// 	objetivoactual;
-// 	posetag;
 }
-
 /**
 * \brief Default destructor
 */
@@ -57,7 +54,7 @@ void SpecificWorker::compute()
 	histogram();
 	ldata=laser_proxy->getLaserData();
 	differentialrobot_proxy->getBaseState(Basestate);
-	inner->updateTransformValues("base",Basestate.x,0,Basestate.z,0,Basestate.alpha,0);
+	inner->updateTransformValues("robot",Basestate.x,0,Basestate.z,0,Basestate.alpha,0);
 	switch(st){
 		case State::FINISH:
 			break;
@@ -72,15 +69,7 @@ void SpecificWorker::compute()
 }
 float SpecificWorker::go(const TargetPose &target)
 {
-	if(state.state=="WORKING"){
-		QMutexLocker ml(&m);
-		if(fabs(posetag(0)-target.x)>200||fabs(posetag(2)-target.z)>200){
-			objetivoactual=QVec::vec3(target.x,target.y,target.z);
-			stgo=statego::ORIENTARSE;
-		}
-		posetag=QVec::vec3(target.x,target.y,target.z);
-	}
-	else{
+	if(state.state!="WORKING"){
 		state.state="WORKING";
 		st=State::WORKING;
 		QMutexLocker ml(&m);
@@ -95,7 +84,13 @@ NavState SpecificWorker::getState()
 }
 void SpecificWorker::stop()
 {
-
+	state.state=="IDLE";
+	st=State::IDLE;
+	objetivoactual=QVec::zeros(3);
+	posetag=objetivoactual;
+	state.SubPoints="";
+	stgo=statego::ORIENTARSE;
+	differentialrobot_proxy->setSpeedBase(0,0);
 }
 void SpecificWorker::gototarget()
 {
@@ -125,12 +120,24 @@ SpecificWorker::statego SpecificWorker::orientarse()
 {
 	qDebug() << __FUNCTION__<<"---inicio";
 	QVec objerobot=inner->transform("laser",objetivoactual,"world");
-	float rot=atan2(objerobot(0),objerobot(2));
+	float rot=atan2(objerobot.x(),objerobot.z());
+	qDebug() <<"alfa"<<rot;
 	if(fabs(rot)>muestreolaser){
 		differentialrobot_proxy->setSpeedBase(0,rot*2);
 		usleep(500000);
 		differentialrobot_proxy->setSpeedBase(0,0);
 	}
+// 	if( fabs(rot) > 0.5)	//If target qposR not in front of the robot, turn around
+// 	{
+// 		try	{	differentialrobot_proxy->setSpeedBase(0, 0.4*rot);	}
+// 		catch(Ice::Exception &ex) {std::cout<<ex.what()<<std::endl;};	
+// 		return statego::ORIENTARSE;
+// 	}
+// 	else 
+// 	{
+// 		try	{	differentialrobot_proxy->setSpeedBase(0,0);	}
+// 		catch(Ice::Exception &ex) {std::cout<<ex.what()<<std::endl;};	
+// 	}
 	qDebug() << __FUNCTION__<<"---fin";
 	return statego::HAYOBTACULO;
 }
@@ -188,8 +195,6 @@ SpecificWorker::statego SpecificWorker::calcularsubobjetivo()
 	qDebug() << __FUNCTION__<<"---fin";
 	return statego::ORIENTARSE;
 }
-
-
 SpecificWorker::statego SpecificWorker::puedopasar_orientado()
 {	
 	qDebug() << __FUNCTION__<<"---inicio";
@@ -199,6 +204,49 @@ SpecificWorker::statego SpecificWorker::puedopasar_orientado()
 		return statego::AVANZAR;
 	else 
 		return statego::CALCULAROBJETIVO;
+}
+SpecificWorker::statego SpecificWorker::avanzar()
+{
+	qDebug() << __FUNCTION__<<"---inicio";
+	differentialrobot_proxy->setSpeedBase(600,0);
+	qDebug() << __FUNCTION__<<"---fin";
+	return statego::HELLEGADO;
+}
+void SpecificWorker::hellegado()
+{
+	qDebug() << __FUNCTION__<<"---inicio";
+	if(fabs(Basestate.z-objetivoactual(2))<100&&fabs(Basestate.x-objetivoactual(0))<100)
+	{
+		state.SubPoints=state.SubPoints+"/"+to_string(objetivoactual(0))+" "+to_string(objetivoactual(2));
+		m.lock();
+		if (objetivoactual==posetag)
+		{
+			state.state="FINISH";
+			st=State::FINISH;
+		}
+		else
+			objetivoactual=posetag;
+		m.unlock();
+		differentialrobot_proxy->setSpeedBase(0,0);
+		stgo=statego::ORIENTARSE;
+	}
+	else
+	{
+		QVec objerobot=inner->transform("laser",objetivoactual,"world");
+		float rot=atan2(objerobot.x(),objerobot.z());
+		qDebug()<<rot;
+		differentialrobot_proxy->setSpeedBase(500,rot);
+		if (objetivoactual!=posetag){
+			QVec objerobot=inner->transform("laser",posetag,"world");
+			if(puedopasar_singirase(objerobot)){
+				differentialrobot_proxy->setSpeedBase(0,0);
+				objetivoactual=posetag;
+				stgo=statego::ORIENTARSE;
+				state.SubPoints=state.SubPoints+"/"+to_string(Basestate.x)+" "+to_string(Basestate.z);
+			}
+		}
+	}
+	qDebug() << __FUNCTION__<<"---fin";
 }
 bool SpecificWorker::puedopasar_singirase(QVec objerobot)
 {	
@@ -236,48 +284,6 @@ bool SpecificWorker::puedopasar(int a,float distobje)
 		}
 	}
 	return true;
-}
-void SpecificWorker::hellegado()
-{
-	qDebug() << __FUNCTION__<<"---inicio";
-	if(fabs(Basestate.z-objetivoactual(2))<50&&fabs(Basestate.x-objetivoactual(0))<50)
-	{
-		state.SubPoints=state.SubPoints+"/"+to_string(objetivoactual(0))+" "+to_string(objetivoactual(2));
-		m.lock();
-		if (objetivoactual==posetag)
-		{
-			state.state="FINISH";
-			st=State::FINISH;
-		}
-		else
-			objetivoactual=posetag;
-		m.unlock();
-		differentialrobot_proxy->setSpeedBase(0,0);
-		stgo=statego::ORIENTARSE;
-	}
-	else
-	{
-		QVec objerobot=inner->transform("laser",objetivoactual,"world");
-		float rot=atan2(objerobot(0),objerobot(2));
-		differentialrobot_proxy->setSpeedBase(500,rot);
-		if (objetivoactual!=posetag){
-			QVec objerobot=inner->transform("laser",posetag,"world");
-			if(puedopasar_singirase(objerobot)){
-				differentialrobot_proxy->setSpeedBase(0,0);
-				objetivoactual=posetag;
-				stgo=statego::ORIENTARSE;
-				state.SubPoints=state.SubPoints+"/"+to_string(Basestate.x)+" "+to_string(Basestate.z);
-			}
-		}
-	}
-	qDebug() << __FUNCTION__<<"---fin";
-}
-SpecificWorker::statego SpecificWorker::avanzar()
-{
-	qDebug() << __FUNCTION__<<"---inicio";
-	differentialrobot_proxy->setSpeedBase(600,0);
-	qDebug() << __FUNCTION__<<"---fin";
-	return statego::HELLEGADO;
 }
 void SpecificWorker::writeinfo(string _info)
 {	
