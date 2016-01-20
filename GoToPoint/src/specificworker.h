@@ -51,23 +51,20 @@ public slots:
 
 private:
 	enum class State  { WORKING, FINISH, IDLE, BLOCKED};
-	enum class statego  { ORIENTARSE, AVANZAR, HAYOBTACULO, PUEDOPASAR, CALCULAROBJETIVO, HELLEGADO};
-	
-	QMutex m;
-	statego stgo;
 	State st;
-	QVec subobjetivo;
-	QVec objetivoactual;
-	QVec posetag;
+	enum class statego  { ORIENTARSE, AVANZAR, HAYOBTACULO, PUEDOPASAR, CALCULAROBJETIVO, HELLEGADO};
+	statego stgo;
+	QVec subobjetivo, objetivoactual, posetag;
 	NavState state;
 	TBaseState Basestate;
 	InnerModel *inner;
 	QGraphicsScene scene;
-	int pos;
+	int pos, mldata;
 	float muestreolaser;
-	int mldata;
 	RoboCompLaser::TLaserData ldata;
-		
+
+	
+//---------------FUNCIONES---------------
 	bool puedopasar(int a,float distobje);
 	void gototarget();
 	statego orientarse();
@@ -75,8 +72,8 @@ private:
 	statego calcularsubobjetivo();
 	statego puedopasar_orientado();
 	bool puedopasar_singirase(QVec objerobot);
-	void hellegado();
 	statego avanzar();
+	void hellegado();
 	void writeinfo(string _info);
 	void histogram();
 };

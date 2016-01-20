@@ -9,6 +9,7 @@ Controller.Endpoints=tcp -p 10050
 DifferentialRobotProxy = differentialrobot:tcp -h localhost -p 10004
 LaserProxy = laser:tcp -h localhost -p 10003
 
+InnerModelPath=/home/robocomp/robocomp/files/innermodel/RoCKIn@home/world/apartment.xml
 
 
 Ice.Warn.Connections=0

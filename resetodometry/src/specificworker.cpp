@@ -17,13 +17,16 @@
  *    along with RoboComp.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "specificworker.h"
+#include <qt4/Qt/qdebug.h>
 
 /**
 * \brief Default constructor
 */
 SpecificWorker::SpecificWorker(MapPrx& mprx) : GenericWorker(mprx)
 {
-	inner = new InnerModel("/home/ivan/robocomp/files/innermodel/RoCKIn@home/world/apartment.xml");
+// 	inner=NULL;
+// 	inner = new InnerModel("/home/ivan/robocomp/files/innermodel/RoCKIn@home/world/apartment.xml");
+	inner = new InnerModel("/home/ivan/robocomp/files/innermodel/simpleworld.xml");
 	avistado=false;
 }
 
@@ -42,49 +45,71 @@ bool SpecificWorker::setParams(RoboCompCommonBehavior::ParameterList params)
 
 	
 	timer.start(Period);
-
+// 	try
+// 	{
+// 		RoboCompCommonBehavior::Parameter par = params.at("InnerModelPath");
+// 		string innermodel_path=par.value;
+// 		try
+// 		{	
+// 			inner = new InnerModel(innermodel_path);
+// 		}
+// 		catch (QString &s)
+// 		{
+// 			printf("error reading iner model %s\n", s.toStdString().c_str());
+// 		}
+// 		
+// 	}
+// 	catch(std::exception e) { qFatal("Error reading config params"); }
+	
 	return true;
 }
 
 void SpecificWorker::compute()
 {
 	if(avistado)
-	{
+	{	
 		Resetodometry();
-		avistado=true;
+		avistado=false;
 	}
 }
 
 void SpecificWorker::Resetodometry()
 {
-	InnerModelTransform *T= inner->getTransform("rgbd");
-	inner->InnerModel::newTransform("tag", "static", T, tag.tx, tag.ty, tag.tz, tag.rx, tag.ry, tag.rz);
-	
-	RTMat r=inner->getTransformationMatrix("tag","rgbd");
-	
-	QVec v=inner->transform6D("tag","rgbd");
-	
-	T = inner->getTransform(tag.id+"");
-	
-	inner->newTransform("RGBDvirtual", "static",T , v.x(), v.y(), v.z(), v.rx(), v.ry(), v.rz());
-	
-	v=inner->transform6D("rgbd","robot");
-	T = inner->getTransform("RGBDvirtual");
-	inner->newTransform("basevirtual", "static",T ,v.x(),v.y(),v.z(),v.rx(),v.ry(),v.rz());
-	
-	v=inner->transform6D("basevirtual","world");
-	
-	inner->updateTransformValues("robot",v.x(),v.y(),v.z(),v.rx(),v.ry(),v.rz());
+	try{
+		InnerModelNode *T = inner->getNode("rgbd");
+		
+		inner->InnerModel::newTransform("tag", "static", T, tag.tx, tag.ty, tag.tz, tag.rx, tag.ry, tag.rz);
+		RTMat r=inner->getTransformationMatrix("tag","rgbd");
+		QVec v=inner->transform6D("tag","rgbd");
+		T = inner->getNode(tag.id+"");
+		inner->newTransform("RGBDvirtual", "static",T , v.x(), v.y(), v.z(), v.rx(), v.ry(), v.rz());
+		v=inner->transform6D("rgbd","robot");
+		T = inner->getNode("RGBDvirtual");
+		inner->newTransform("basevirtual", "static",T ,v.x(),v.y(),v.z(),v.rx(),v.ry(),v.rz());
+		v=inner->transform6D("basevirtual","world");
+		inner->updateTransformValues("robot",v.x(),v.y(),v.z(),v.rx(),v.ry(),v.rz());
 
-	TBaseState t;
-	t.x=v.x();
-	t.z=v.z();
-	t.alpha=v.ry();
-	differentialrobot_proxy->setOdometer(t);
-	
-	inner->removeNode("basevirtual");
-	inner->removeNode("RGBDvirtual");
-	inner->removeNode("tag");
+		TBaseState t;
+		t.x=v.x();
+		t.z=v.z();
+		t.alpha=v.ry();
+		differentialrobot_proxy->setOdometer(t);
+		
+		inner->removeNode("basevirtual");
+		inner->removeNode("RGBDvirtual");
+		inner->removeNode("tag");
+		qDebug() << __FUNCTION__<<"Odometry: ";
+		qDebug() <<"	tx:"<<v.x();
+		qDebug() <<"	ty:"<<v.y();
+		qDebug() <<"	tz:"<<v.z();
+		qDebug() <<"	rx:"<<v.rx();
+		qDebug() <<"	ry:"<<v.ry();
+		qDebug() <<"	rz:"<<v.rz();
+	}
+	catch(const Ice::Exception &ex)
+	{
+		  std::cout << ex << std::endl;
+	}
 }
 
 void SpecificWorker::newAprilTag(const tagsList &tags)
@@ -93,6 +118,7 @@ void SpecificWorker::newAprilTag(const tagsList &tags)
 		for(auto t:tags){
 			tag=t;
 		}
+		avistado=true;
 }
 
 

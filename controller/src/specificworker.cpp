@@ -30,7 +30,6 @@ SpecificWorker::SpecificWorker(MapPrx& mprx) : GenericWorker(mprx)
 {
 	connect(Start, SIGNAL(clicked()), this, SLOT(iniciar()));
 	connect(Stop, SIGNAL(clicked()), this, SLOT(parar()));
-// 	connect(Reset, SIGNAL(clicked()), this, SLOT(reset()));
 	connect(&clk, SIGNAL(senal()), this, SLOT(reloj()));
 	
 	clk.setseg(1000);
@@ -39,12 +38,9 @@ SpecificWorker::SpecificWorker(MapPrx& mprx) : GenericWorker(mprx)
 	startbutton=false;
 	clk.start();
 	st=State::INIT;
-	id_tag=0;
 	cota = 16;
 	distsecurity = 440;
-	threshold = 400;
-	velmax=270;	//velocidad maxima del robot
-	velmaxg=1.5;
+// 	inner=NULL;
 	inner = new InnerModel("/home/ivan/robocomp/files/innermodel/RoCKIn@home/world/apartment.xml");
 // 	inner = new InnerModel("/home/ivan/robocomp/files/innermodel/simpleworld.xml");
 	map = new MapQVec(Grafo);
@@ -71,20 +67,27 @@ SpecificWorker::~SpecificWorker(){
 bool SpecificWorker::setParams(RoboCompCommonBehavior::ParameterList params)
 {
 	timer.start(Period);
+// 	try
+// 	{
+// 		RoboCompCommonBehavior::Parameter par = params.at("InnerModelPath");
+// 		string innermodel_path=par.value;
+// 		try
+// 		{	
+// 			inner = new InnerModel(innermodel_path);
+// 		}
+// 		catch (QString &s)
+// 		{
+// 			printf("error reading iner model %s\n", s.toStdString().c_str());
+// 		}
+// 		
+// 	}
+// 	catch(std::exception e) { qFatal("Error reading config params"); }
 	return true;
 }
 void SpecificWorker::compute()
 {
 	try
 	{
-// 		if(ifloor!=FLOOR){
-// 			if(lemon::countNodes<Graph>(Grafo)%nnodos>0)
-// 				a=true;
-// 			else
-// 			{
-// 				if(a) ifloor+=100;
-// 			}
-// 		}
 		pintarrobot();
 		ldata = laser_proxy->getLaserData();
 		ldatacota = laser_proxy->getLaserData();
@@ -159,7 +162,7 @@ SpecificWorker::State SpecificWorker::mapear()
 			}	
 		}
 		qDebug() << __FUNCTION__ << "dist" << d << "node" << map->operator[](nodoDestino);
-// 		if((map->operator[](nodoDestino)-n).norm2()>700)return State::MAPEAR;
+// 		if((map->operator[](nodoDestino)-n).norm2()>700)return State::MAPEAR; //variante del algoritmo RRT
 		if( nodoDestino != robotnode)
 		{
 			dijkstra(nodoDestino);
@@ -179,27 +182,11 @@ SpecificWorker::State SpecificWorker::checkpoint()
 	qDebug() << __FUNCTION__<<"---inicio";
 	QVec qposR = inner->transform("laser",n,"world");
 	float alfa = atan2(qposR.x(), qposR.z());
-// 	if(fabs(alfa)>muestreolaser)
-// 	{
-// 		girar(alfa);
-// 		return State::CHECKPOINT;
-// 	}
 	if(fabs(alfa)>muestreolaser){
 		differentialrobot_proxy->setSpeedBase(0,alfa*2);
 		usleep(500000);
 		differentialrobot_proxy->setSpeedBase(0,0);
 	}
-// 	if( fabs(alfa) > 0.5)	//If target qposR not in front of the robot, turn around
-// 	{
-// 		try	{	differentialrobot_proxy->setSpeedBase(0, 0.4*alfa);	}
-// 		catch(Ice::Exception &ex) {std::cout<<ex.what()<<std::endl;};	
-// 		return State::CHECKPOINT;
-// 	}
-// 	else 
-// 	{
-// 		try	{	differentialrobot_proxy->setSpeedBase(0,0);	}
-// 		catch(Ice::Exception &ex) {std::cout<<ex.what()<<std::endl;};	
-// 	}
 	float dist = qposR.norm2();
 	qDebug()<< ldatasinord[mldata].dist<< "<"<< dist;
 	if( ldatasinord[mldata].dist < dist-ROBOT_SIZE)
@@ -322,12 +309,6 @@ bool SpecificWorker::puntodentrocampolaser(int &pos,float angle, int distpoint)
 	  else 
 		  return true;
 	
-}
-void SpecificWorker::girar(float angle)
-{
-	differentialrobot_proxy->setSpeedBase(0,angle*2);
-	usleep(500000);
-	differentialrobot_proxy->setSpeedBase(0,0);
 }
 void SpecificWorker::anadirnodo(QVec nuevo)
 {

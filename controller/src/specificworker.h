@@ -63,7 +63,6 @@ typedef lemon::Path<Graph::Graph> Path;
 
 #define ROBOT_SIZE 470.f
 #define ROBOT_RADIUS 200.f
-#define nnodos 16
 
 public:
 	SpecificWorker(MapPrx& mprx);	
@@ -71,42 +70,32 @@ public:
 	bool setParams(RoboCompCommonBehavior::ParameterList params);
 public slots:
 	void compute();
-	
 	void reloj();
 	void iniciar();
 	void parar();
-// 	void reset();
 private:
 //=====================Variables==================
-	int id_tag;
 	bool startbutton;	//BOTON DE STARTINICIADO
 	MyQTimer clk;
 	QGraphicsScene *scene;	//GRAFICOS DEL ROBOT
+	QGraphicsEllipseItem *circulo;
+	
 	enum class State  { INIT, MAPEAR, HELLEGADO,GOTOPOINTS,CHECKPOINT} ;  
 	State st;
-	int cota;
-	int distsecurity;
-	float threshold;
-	int velmax;	//velocidad maxima del robot
-	float velmaxg;
 	
+	int cota, mldata, distsecurity;
+	float muestreolaser;
+	TBaseState state;		//estado del robot
+	QStack<Node> pila;		//camino hasta un nodo
 	
-	QStack<Node> pila;
-	TBaseState state;
-	RoboCompLaser::TLaserData ldata;
-	RoboCompLaser::TLaserData ldatacota;
-	RoboCompLaser::TLaserData ldatasinord;
+	RoboCompLaser::TLaserData ldata, ldatacota, ldatasinord;		//laser
 	InnerModel *inner;
 	Graph Grafo;
 	MapQVec *map;
 	LengthMap *cost;
 	Node robotnode;
-	QGraphicsEllipseItem *circulo;
-	QVec anterior,n;
-	QVec pick;
-	float muestreolaser;
-	int mldata;
-	lemon::Path<lemon::ListGraph> path;
+	
+	QVec anterior, n, pick;
 	
 	
 	
@@ -123,11 +112,9 @@ private:
 	void accionEsquina();
 	void setPick(const Pick &myPick);
 	void writeinfo(string _info);
-	void writeinfoTag(string _info);
 	void pintarnodo(QVec origen, QVec destino);
 	void pintardestino(QVec destino);
 	bool puntodentrocampolaser(int &pos,float angle, int distpoint);
-	void girar(float angle);
 	void borrarcirculo();
 	void pintarposerobot();
 	void pintarrobot();

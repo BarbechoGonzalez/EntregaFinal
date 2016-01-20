@@ -27,6 +27,7 @@ SpecificWorker::SpecificWorker(MapPrx& mprx) : GenericWorker(mprx)
 	state.state="IDLE";
 	st=State::IDLE;
 	stgo=statego::ORIENTARSE;
+// 	inner=NULL;
 	inner = new InnerModel("/home/ivan/robocomp/files/innermodel/RoCKIn@home/world/apartment.xml");
 // 	inner = new InnerModel("/home/ivan/robocomp/files/innermodel/simpleworld.xml");
 	ldata=laser_proxy->getLaserData();
@@ -47,6 +48,21 @@ SpecificWorker::~SpecificWorker()
 bool SpecificWorker::setParams(RoboCompCommonBehavior::ParameterList params)
 {
 	timer.start(Period);
+// 	try
+// 	{
+// 		RoboCompCommonBehavior::Parameter par = params.at("InnerModelPath");
+// 		string innermodel_path=par.value;
+// 		try
+// 		{	
+// 			inner = new InnerModel(innermodel_path);
+// 		}
+// 		catch (QString &s)
+// 		{
+// 			printf("error reading iner model %s\n", s.toStdString().c_str());
+// 		}
+// 		
+// 	}
+// 	catch(std::exception e) { qFatal("Error reading config params"); }
 	return true;
 }
 void SpecificWorker::compute()
@@ -72,7 +88,6 @@ float SpecificWorker::go(const TargetPose &target)
 	if(state.state!="WORKING"){
 		state.state="WORKING";
 		st=State::WORKING;
-		QMutexLocker ml(&m);
 		posetag=QVec::vec3(target.x,target.y,target.z);
 		objetivoactual=QVec::vec3(target.x,target.y,target.z);
 		state.SubPoints="";
@@ -127,17 +142,6 @@ SpecificWorker::statego SpecificWorker::orientarse()
 		usleep(500000);
 		differentialrobot_proxy->setSpeedBase(0,0);
 	}
-// 	if( fabs(rot) > 0.5)	//If target qposR not in front of the robot, turn around
-// 	{
-// 		try	{	differentialrobot_proxy->setSpeedBase(0, 0.4*rot);	}
-// 		catch(Ice::Exception &ex) {std::cout<<ex.what()<<std::endl;};	
-// 		return statego::ORIENTARSE;
-// 	}
-// 	else 
-// 	{
-// 		try	{	differentialrobot_proxy->setSpeedBase(0,0);	}
-// 		catch(Ice::Exception &ex) {std::cout<<ex.what()<<std::endl;};	
-// 	}
 	qDebug() << __FUNCTION__<<"---fin";
 	return statego::HAYOBTACULO;
 }
@@ -217,8 +221,7 @@ void SpecificWorker::hellegado()
 	qDebug() << __FUNCTION__<<"---inicio";
 	if(fabs(Basestate.z-objetivoactual(2))<100&&fabs(Basestate.x-objetivoactual(0))<100)
 	{
-		state.SubPoints=state.SubPoints+"/"+to_string(objetivoactual(0))+" "+to_string(objetivoactual(2));
-		m.lock();
+		state.SubPoints=state.SubPoints+"/"+to_string(Basestate.x)+" "+to_string(Basestate.z);
 		if (objetivoactual==posetag)
 		{
 			state.state="FINISH";
@@ -226,7 +229,6 @@ void SpecificWorker::hellegado()
 		}
 		else
 			objetivoactual=posetag;
-		m.unlock();
 		differentialrobot_proxy->setSpeedBase(0,0);
 		stgo=statego::ORIENTARSE;
 	}
@@ -235,7 +237,17 @@ void SpecificWorker::hellegado()
 		QVec objerobot=inner->transform("laser",objetivoactual,"world");
 		float rot=atan2(objerobot.x(),objerobot.z());
 		qDebug()<<rot;
-		differentialrobot_proxy->setSpeedBase(500,rot);
+		if( fabs(rot) > 0.5)	//If target qposR not in front of the robot, turn around
+		{
+			try	{	differentialrobot_proxy->setSpeedBase(0, 0.4*rot);	}
+			catch(Ice::Exception &ex) {std::cout<<ex.what()<<std::endl;};	
+		}
+		else 
+		{
+			try	{	differentialrobot_proxy->setSpeedBase(500,0);	}
+			catch(Ice::Exception &ex) {std::cout<<ex.what()<<std::endl;};	
+		}
+// 		differentialrobot_proxy->setSpeedBase(500,rot);
 		if (objetivoactual!=posetag){
 			QVec objerobot=inner->transform("laser",posetag,"world");
 			if(puedopasar_singirase(objerobot)){
